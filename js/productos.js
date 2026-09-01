@@ -1,5 +1,10 @@
 import { catalogo } from "./datos.js";
 //import { agregarAlCarrito } from "./carrito.js"
+import { cargarHeader } from "./componentes.js";
+import { cargarFooter } from "./componentes.js";
+
+
+cargarHeader();
 
 const contenedorCatalogo = document.querySelector("#contenedor-catalogo");
 const inputBuscador = document.querySelector("#buscador");
@@ -83,3 +88,5 @@ function quitarAcentos(texto) {
         .replace(/ó/g, 'o')
         .replace(/ú/g, 'u');
 }
+
+cargarFooter();

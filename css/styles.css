@@ -1,13 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
 
+
+/* -------------
+    GLOBALES 
+--------------*/
+
+/* Textos del cuerpo */
 body {
-    background-color: #F5E6D3;
+    background-color: #F5E6D3;      /* Fondos principales, fotografía */
+    color: black;
     font-family: 'Inter', sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
+/* Títulos principales */
+h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #A0522D;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0;
+}
+
+p, li {
+    margin: 0 0 8px 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+/*
+a:hover {
+    color: #87A96B;
+} */
+
+/* ---------------------
+    PAGINA DE INICIO 
+----------------------*/
 
 /* index.html */
 
+/* Header */
 #contenedor-header {
     display: flex;
     flex-wrap: wrap;
@@ -26,7 +71,7 @@ body {
     width: 30%;
     box-sizing: border-box;
     
-    color: #A0522D; /* Siena Tostado[cite: 3] */
+    color: #A0522D;
     font-family: 'Playfair Display', Georgia, serif; /*[cite: 3] */
     font-size: 36px;
     font-weight: 700; /* Bold[cite: 3] */
@@ -36,40 +81,73 @@ body {
     border: 2px solid black;
     border-radius: 8px;
     transition: all 0.3s ease;
-    
-    
+}
+
+#header-logo:hover {
+    transform: scale(1.02);
 }
 
 #header-logo img {
-    width: 20%;
+    width: 45px;
     height: auto;
 }
 
 #header-nav ul {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     gap: 40px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 #header-nav a {
-    text-decoration: none;
+    display: inline-block;
     color: black;
     border: 2px solid #a0522d;
-    font-family: 'Inter', sans-serif; /* Tipografía primaria[cite: 3] */
-    font-weight: 500; /* Peso Medium para elementos interactivos[cite: 3] */
+    font-weight: 500;
     font-size: 16px;
     transition: color 0.3s ease;
+}
+
+#header-nav a:hover {
+    /* color: #87A96B; */
+    transform: scale(1.02);
 }
 
 #header-carrito {
     width: 10%;
 }
 
+/* Footer */
+#contenedor-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    padding: 15px;
+    
+}
 
+.footer-columna {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 30%;
+    border: 2px solid #A0522D;
+    padding: 20px;
+    box-sizing: border-box;   
+}
+
+.footer-columna h3 {
+    align-self: center;
+}
+
+#footer-copyright {
+    text-align: center;
+    padding: 15px;
+}
+
+/* --------------------------
+    CATALOGO DE PRODUCTOS 
+---------------------------*/
 
 /* productos.html */
 
