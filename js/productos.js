@@ -1,25 +1,39 @@
 import { catalogo } from "./datos.js";
 //import { agregarAlCarrito } from "./carrito.js"
-import { cargarHeader } from "./componentes.js";
-import { cargarFooter } from "./componentes.js";
-
-
-cargarHeader();
+import { cargarHeader, cargarFooter } from "./componentes.js";
 
 const contenedorCatalogo = document.querySelector("#contenedor-catalogo");
 const inputBuscador = document.querySelector("#buscador");
 let mueblesDescargados = [];
 
-iniciarCatalogo();
+// Solo ejecuta esto si el contenedor del catálogo existe en la pantalla actual
+if (contenedorCatalogo && inputBuscador) {
+    cargarHeader();
+    iniciarCatalogo();
+
+    inputBuscador.addEventListener("input", function (evento) {
+        const textoBuscado = quitarAcentos(evento.target.value.toLowerCase());
+        const resultadosFiltrados = catalogo.filter(function (mueble) {
+            const nombreMueble = quitarAcentos(mueble.nombre.toLowerCase());
+            const categoriaMueble = quitarAcentos(mueble.categoria.toLowerCase());
+            return nombreMueble.startsWith(textoBuscado) || categoriaMueble.startsWith(textoBuscado);
+        });
+        
+        // Faltaba agregar contenedorCatalogo como destino
+        mostrarProductos(resultadosFiltrados, contenedorCatalogo);
+    });
+    
+    cargarFooter();
+}
 
 //Simular una petición de datos asíncrona para cargar el catálogo
 async function iniciarCatalogo() {
     contenedorCatalogo.innerHTML = "<h2>Cargando Catálogo</h2>"
     mueblesDescargados = await pedirDatos();
-    mostrarProductos(mueblesDescargados);
+    mostrarProductos(mueblesDescargados, contenedorCatalogo);
 }
 
-function pedirDatos() {
+export function pedirDatos() {
     return new Promise(function (resolver) {
         setTimeout(function() {
             resolver(catalogo);
@@ -28,8 +42,8 @@ function pedirDatos() {
 }
 
 // Grilla de tarjetas de productos
-function mostrarProductos(arrayMuebles) {
-    contenedorCatalogo.innerHTML = "";
+export function mostrarProductos(arrayMuebles, contenedorDestino) {
+    contenedorDestino.innerHTML = "";
 
     arrayMuebles.forEach((mueble) => {
         const divProducto = document.createElement("div");
@@ -60,25 +74,9 @@ function mostrarProductos(arrayMuebles) {
         });
         divProducto.appendChild(boton);
 
-        contenedorCatalogo.appendChild(divProducto);
+        contenedorDestino.appendChild(divProducto);
     });
 }
-
-// Campo de Búsqueda
-inputBuscador.addEventListener("input", function (evento) {
-    const textoBuscado = quitarAcentos(evento.target.value.toLowerCase());
-
-    const resultadosFiltrados = catalogo.filter(function (mueble) {
-        const nombreMueble = quitarAcentos(mueble.nombre.toLowerCase());
-        const categoriaMueble = quitarAcentos(mueble.categoria.toLowerCase());
-        if (nombreMueble.startsWith(textoBuscado) || categoriaMueble.startsWith(textoBuscado)) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-    mostrarProductos(resultadosFiltrados);
-});
 
 function quitarAcentos(texto) {
     return texto
@@ -89,4 +87,3 @@ function quitarAcentos(texto) {
         .replace(/ú/g, 'u');
 }
 
-cargarFooter();

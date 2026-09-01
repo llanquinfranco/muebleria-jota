@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
 
 
-/* -------------
-    GLOBALES 
---------------*/
+/* -------------------------------------
+                GLOBALES 
+------------------------------------- */
 
 /* Textos del cuerpo */
 body {
@@ -46,11 +46,11 @@ a:hover {
     color: #87A96B;
 } */
 
-/* ---------------------
-    PAGINA DE INICIO 
-----------------------*/
 
-/* index.html */
+
+/* -------------------------------------
+                index.html
+------------------------------------- */
 
 /* Header */
 #contenedor-header {
@@ -59,8 +59,6 @@ a:hover {
     justify-content: space-around;
     align-items: center;
     padding: 15px 30px;
-    background-color: white;
-    
 }
 
 #header-logo {
@@ -72,13 +70,12 @@ a:hover {
     box-sizing: border-box;
     
     color: #A0522D;
-    font-family: 'Playfair Display', Georgia, serif; /*[cite: 3] */
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 36px;
-    font-weight: 700; /* Bold[cite: 3] */
+    font-weight: 700;
     text-decoration: none;
     
     cursor: pointer;
-    border: 2px solid black;
     border-radius: 8px;
     transition: all 0.3s ease;
 }
@@ -116,6 +113,86 @@ a:hover {
     width: 10%;
 }
 
+#hero-banner {
+    background-color: #A0522D;
+    color: #F5E6D3;
+    padding: 120px 40px; 
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    margin-bottom: 25px;
+}
+
+.hero-contenido {
+    max-width: 800px;
+}
+
+.hero-contenido h1 {
+    color: #F5E6D3; 
+    font-size: 52px; 
+    margin-bottom: 20px;
+}
+
+.hero-contenido p {
+    font-weight: 300;
+    font-size: 14pt;
+    margin-bottom: 35px;
+}
+
+.btn-primario {
+    display: inline-block;
+    background-color: #87A96B;
+    color: #fffdf9;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 15px 35px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-primario:hover {
+    background-color: #F5E6D3;
+    color: #A0522D;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+#productos-destacados {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contenedor-destacados {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px;
+}
+
+#contenedor-destacados .tarjeta-producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35%;
+    height: auto;
+    padding: 15px;
+    box-sizing: border-box;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px #a0522d;
+    border: 2px solid #a0522d;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
 /* Footer */
 #contenedor-footer {
     display: flex;
@@ -130,8 +207,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 30%;
-    border: 2px solid #A0522D;
+    width: 22%;
     padding: 20px;
     box-sizing: border-box;   
 }
@@ -140,16 +216,34 @@ a:hover {
     align-self: center;
 }
 
+.footer-columna p, .footer-columna li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 5px 0;
+}
+
+.icono-footer {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+#icono-wpp {
+    transform: scale(1.6);
+}
+
 #footer-copyright {
     text-align: center;
     padding: 15px;
 }
 
-/* --------------------------
-    CATALOGO DE PRODUCTOS 
----------------------------*/
 
-/* productos.html */
+
+/* -------------------------------------------
+                productos.html
+------------------------------------------- */
+
 
 #buscador {
     display: block;

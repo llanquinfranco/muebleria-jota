@@ -46,10 +46,18 @@ export function cargarFooter() {
                 
             <div class="footer-columna">
                 <h3>Contactanos</h3>
-                <p>wpp: +54 11 4567-8900</p>
-                <p>mail: info@hermanosjota.com.ar</p>
-                <p>mail: ventas@hermanosjota.com.ar</p>
-                <p>ig: @hermanosjota_ba</p>
+                <p> <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="icono-footer" id="icono-wpp">
+                    +54 11 4567-8900
+                </p>
+                <p> <img src="assets/icons/gmail.svg" alt="Gmail" class="icono-footer">
+                    info@hermanosjota.com.ar
+                </p>
+                <p> <img src="assets/icons/gmail.svg" alt="Gmail" class="icono-footer">
+                    ventas@hermanosjota.com.ar
+                </p>
+                <p> <img src="assets/icons/instagram.svg" alt="Instagram" class="icono-footer">
+                    @hermanosjota_ba
+                </p>
             </div>
                 
         </div>
