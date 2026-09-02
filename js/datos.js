@@ -189,3 +189,11 @@ export const catalogo = [
         destacado: false,
     },
 ];
+
+export function pedirDatos() {
+    return new Promise(function (resolver) {
+        setTimeout(function() {
+            resolver(catalogo);
+        }, 1500);
+    });
+}

@@ -1,11 +1,12 @@
-import { cargarHeader, cargarFooter } from "./componentes.js";
-import { pedirDatos, mostrarProductos } from "./productos.js";
+import { cargarHeader, cargarFooter, mostrarProductos } from "./componentes.js";
+import { pedirDatos } from "./datos.js";
 
 cargarHeader();
 
 const contenedorDestacados = document.querySelector("#contenedor-destacados");
-
 iniciarDestacados();
+
+cargarFooter();
 
 async function iniciarDestacados() {
     contenedorDestacados.innerHTML = "<h2>Cargando Destacados</h2>"
@@ -17,5 +18,3 @@ async function iniciarDestacados() {
     
     mostrarProductos(descatadosAleatorios, contenedorDestacados);
 }
-
-cargarFooter();

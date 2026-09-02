@@ -48,11 +48,19 @@ a:hover {
 
 
 
-/* -------------------------------------
+/* ---------------------------------------
                 index.html
-------------------------------------- */
+--------------------------------------- */
 
 /* Header */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #F5E6D3;
+    box-shadow: 0 4px 10px rgba(160, 82, 45, 0.1);
+}
+
 #contenedor-header {
     display: flex;
     flex-wrap: wrap;
@@ -141,7 +149,7 @@ a:hover {
     margin-bottom: 35px;
 }
 
-.btn-primario {
+.boton-primario {
     display: inline-block;
     background-color: #87A96B;
     color: #fffdf9;
@@ -154,7 +162,7 @@ a:hover {
     transition: all 0.3s ease;
 }
 
-.btn-primario:hover {
+.boton-primario:hover {
     background-color: #F5E6D3;
     color: #A0522D;
     transform: translateY(-2px);
@@ -201,6 +209,11 @@ a:hover {
     gap: 30px;
     padding: 15px;
     
+}
+
+footer {
+    background-color: #F5E6D3;
+    box-shadow: 0 -4px 10px rgba(160, 82, 45, 0.1);
 }
 
 .footer-columna {
@@ -348,6 +361,64 @@ a:hover {
     transform: translateY(0);
     box-shadow: 2px 2px 5px rgba(160, 82, 45, 0.15);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------
+                contacto.html
+------------------------------------------ */
+
+#contacto-formulario {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+#form-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+#form-contacto label {
+    font-weight: 500;
+    color: #A0522D;
+}
+
+#form-contacto input, #form-contacto textarea {
+    padding: 10px;
+    border: 2px solid #A0522D;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+#form-contacto input:focus, #form-contacto textarea:focus {
+    outline: none;
+    border-color: #87A96B;
+}
+
+#mensaje-exito {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #87A96B;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+}
+
 
 @media (min-width: 768px) {
     #buscador {

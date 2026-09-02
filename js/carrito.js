@@ -1,0 +1,1 @@
+// Tiene que ser persistene asi si cierro la pagina, que se guarde lo que tenia en el carrito y me lo devuelva

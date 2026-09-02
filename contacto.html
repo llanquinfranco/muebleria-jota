@@ -4,3 +4,38 @@ Formulario: Nombre, Email, Mensaje
 Validación del lado del cliente con JS
 Mensaje de éxito mediante DOM
 Carrito simulado con contador en header -->
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contacto</title>
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="icon" href="assets/icons/logo.svg" />
+    </head>
+    <body>
+        <main>
+            <section id="contacto-formulario">
+                <h2>Contáctenos</h2>
+                <p>Escribinos por cualquier consulta y te responderemos a la brevedad</p>
+
+                <form id="form-contacto">
+                    <label for="nombre">Nombre y Apellido</label>
+                    <input type="text" id="nombre" required />
+
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" required/>
+
+                    <label for="mensaje">Su Pregunta</label>
+                    <textarea name="mensaje" id="" rows="5" required></textarea>
+
+                    <button type="submit" class="boton-primario">Enviar Mensaje</button>
+                </form>
+                <div id="mensaje-exito"></div>
+            </section>
+        </main>
+
+        <script type="module" src="js/contacto.js"></script>
+    </body>
+</html>
