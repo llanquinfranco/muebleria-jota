@@ -362,17 +362,71 @@ footer {
     box-shadow: 2px 2px 5px rgba(160, 82, 45, 0.15);
 }
 
+/* ------------------------------------------
+                producto.html
+------------------------------------------ */
+#contenedor-detalle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px; 
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;   
+}
 
+#detalle-imagen {
+    grid-column: 1 / 2;
+}
 
+#detalle-imagen img{
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px rgba(160, 82, 45, 0.15);
+}
 
+#detalle-compra {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
 
+#detalle-compra p {
+    font-size: 34px;
+    font-weight: 700;
+    color: #87A96B; /* Verde Salvia[cite: 4] */
+    margin: 0;
+}
 
+#boton-agregar {
+    margin-top: 10px;
+    width: 80%; 
+    padding: 15px;
+    font-size: 18px;
+}
 
+#detalle-descripcion {
+    grid-column: 1 / 3;
+    margin-top: 10px;
+    padding-top: 10px;
+}
 
+#detalle-descripcion p {
+    font-size: 12pt;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
 
+#detalle-especificaciones {
+    margin-top: 15px;
+}
 
-
-
+#detalle-especificaciones li {
+    margin-bottom: 10px;
+    font-size: 11pt;
+}
 
 
 /* ------------------------------------------
