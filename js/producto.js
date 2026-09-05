@@ -1,5 +1,6 @@
-import { cargarHeader, cargarFooter, mostrarProductos } from "./componentes.js";
+import { cargarHeader, cargarFooter } from "./componentes.js";
 import { pedirDatos } from "./datos.js";
+import { agregarAlCarrito } from "./carrito.js";
 
 cargarHeader();
 
@@ -44,7 +45,7 @@ async function cargarDetalle() {
         
         // El evento del botón descomentado para el siguiente paso
         document.querySelector("#boton-agregar").addEventListener("click", () => {
-            console.log("Producto guardado:", mueble.nombre);
+            agregarAlCarrito(mueble);
         });
         
     } else {

@@ -1,4 +1,5 @@
 // Las functions que deben ser llamadas por varios html, van separadas asi se evita la duplicacion, y las llamo desde otro js. En este caso el header/footer ya no se duplican cada vez que paso de inicio a catalogo
+import { iniciarCarrito, agregarAlCarrito, renderizarCarrito} from "./carrito.js";
 
 export function cargarHeader() {
     const header = document.createElement("header");
@@ -17,9 +18,41 @@ export function cargarHeader() {
                 </ul>
             </nav>
                 
-            <span id="contador-carrito">0</span>
+            <button id="header-carrito"">
+                <img src="assets/icons/carrito.svg" alt="Ver Carrito">
+                <span id="contador-carrito">0</span>
+            </button>
         </div>`;
     document.body.prepend(header);
+   
+    // Panel para el carrito (oculto), y no crear otro HTML por que la consigna no deja 
+    const panel = document.createElement("aside");
+    panel.id = "panel-carrito";
+    panel.classList.add("oculto");  // No se ve no se ve en lo oscuro no se ve
+    panel.innerHTML = `
+        <div class="panel-cabecera">
+            <h2>Tu Compra</h2>
+            <button id="btn-cerrar-panel">X</button>
+        </div>
+        <div id="panel-contenido"></div>
+        <div class="panel-pie">
+            <h3 id="panel-total">Total: $0</h3>
+            <button id="btn-vaciar-panel" class="btn-secundario">Vaciar Carrito</button>
+            <button class="boton-primario">Ir al Pago</button>
+        </div>`;
+    document.body.appendChild(panel);
+    
+    // Eventos para abrir y cerrar el panel
+    document.querySelector("#header-carrito").addEventListener("click", () => {
+        document.querySelector("#panel-carrito").classList.remove("oculto");
+        renderizarCarrito();
+    });
+
+    document.querySelector("#btn-cerrar-panel").addEventListener("click", () => {
+        document.querySelector("#panel-carrito").classList.add("oculto");
+    });
+    
+    iniciarCarrito();
 }
 
 export function cargarFooter() {

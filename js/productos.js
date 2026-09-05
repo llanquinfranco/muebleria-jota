@@ -1,5 +1,4 @@
 import { catalogo, pedirDatos } from "./datos.js";
-//import { agregarAlCarrito } from "./carrito.js"
 import { cargarHeader, mostrarProductos, cargarFooter } from "./componentes.js";
 
 const contenedorCatalogo = document.querySelector("#contenedor-catalogo");

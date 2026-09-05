@@ -464,6 +464,192 @@ footer {
     border-color: #87A96B;
 }
 
+
+
+/*
+    CARRITO
+*/
+#header-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 8px;
+}
+
+#header-carrito img {
+    width: 28px;
+    height: auto;
+}
+
+#contador-carrito {
+    background-color: #87A96B;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* =========================================
+   PANEL LATERAL DEL CARRITO
+   ========================================= */
+#panel-carrito {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background-color: #F5E6D3; /* Alabastro Cálido */
+    box-shadow: -5px 0 15px rgba(160, 82, 45, 0.2);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+/* Clase dinámica para esconder el panel hacia la derecha */
+#panel-carrito.oculto {
+    transform: translateX(100%); 
+}
+
+.panel-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #A0522D; /* Siena Tostado */
+    color: #F5E6D3;
+}
+
+#btn-cerrar-panel {
+    background: transparent;
+    border: none;
+    color: #F5E6D3;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#panel-contenido {
+    flex-grow: 1; /* Empuja el pie hacia abajo */
+    padding: 20px;
+    overflow-y: auto; /* Permite scroll vertical */
+}
+
+/* Fila individual de cada producto */
+.fila-panel {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.fila-panel img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.fila-info {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+.fila-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #A0522D;
+}
+
+.fila-subtotal {
+    font-weight: bold;
+    color: #87A96B; /* Verde Salvia */
+    margin: 0;
+}
+
+/* Controles de + y - */
+.controles-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.controles-cantidad button {
+    background-color: transparent;
+    border: 1px solid #A0522D;
+    color: #A0522D;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.controles-cantidad button:hover {
+    background-color: #A0522D;
+    color: white;
+}
+
+.controles-cantidad span {
+    font-weight: 500;
+    min-width: 15px;
+    text-align: center;
+}
+
+.btn-eliminar-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Caja de totales abajo */
+.panel-pie {
+    padding: 20px;
+    border-top: 2px solid #ccc;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#panel-total {
+    margin: 0 0 10px 0;
+    color: #A0522D;
+    text-align: right;
+}
+
+#btn-vaciar-panel {
+    background: transparent;
+    color: #A0522D;
+    border: 2px solid #A0522D;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#btn-vaciar-panel:hover {
+    background-color: #A0522D;
+    color: white;
+}
+
+
+
+
+ 
+
 #mensaje-exito {
     margin-top: 20px;
     padding: 15px;
