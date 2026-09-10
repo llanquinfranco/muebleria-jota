@@ -52,14 +52,14 @@ export function renderizarCarrito() {
                 <h4>${mueble.nombre}</h4>
                 
                 <div class="controles-cantidad">
-                    <button class="btn-restar" data-id="${mueble.id}">-</button>
+                    <button class="boton-restar" data-id="${mueble.id}">-</button>
                     <span>${mueble.cantidad}</span>
-                    <button class="btn-sumar" data-id="${mueble.id}">+</button>
+                    <button class="boton-sumar" data-id="${mueble.id}">+</button>
                 </div>
                 
                 <p class="fila-subtotal">$${subtotal}</p>
             </div>
-            <button class="btn-eliminar-item" data-id="${mueble.id}">🗑️</button>
+            <button class="boton-eliminar-item" data-id="${mueble.id}">🗑️</button>
         `;
         contenedor.appendChild(fila);
     });
@@ -67,7 +67,7 @@ export function renderizarCarrito() {
     totalElemento.textContent = `Total: $${total}`;
     
     // EVENTOS: Eliminar completo
-    document.querySelectorAll(".btn-eliminar-item").forEach(btn => {
+    document.querySelectorAll(".boton-eliminar-item").forEach(btn => {
         btn.addEventListener("click", (e) => {
             eliminarDelCarrito(e.target.getAttribute("data-id"));
             renderizarCarrito(); 
@@ -75,7 +75,7 @@ export function renderizarCarrito() {
     });
     
     // EVENTOS: Restar uno
-    document.querySelectorAll(".btn-restar").forEach(btn => {
+    document.querySelectorAll(".boton-restar").forEach(btn => {
         btn.addEventListener("click", (e) => {
             restarUnidad(e.target.getAttribute("data-id"));
             renderizarCarrito();
@@ -83,7 +83,7 @@ export function renderizarCarrito() {
     });
 
     // EVENTOS: Sumar uno
-    document.querySelectorAll(".btn-sumar").forEach(btn => {
+    document.querySelectorAll(".boton-sumar").forEach(btn => {
         btn.addEventListener("click", (e) => {
             sumarUnidad(e.target.getAttribute("data-id"));
             renderizarCarrito();
@@ -92,7 +92,7 @@ export function renderizarCarrito() {
 }
 
 document.addEventListener("click", (e) => {
-    if (e.target.id === "btn-vaciar-panel") {
+    if (e.target.id === "boton-vaciar-panel") {
         vaciarCarrito();
         renderizarCarrito();
     }

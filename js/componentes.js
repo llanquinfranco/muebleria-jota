@@ -10,34 +10,44 @@ export function cargarHeader() {
                 Hermanos Jota
             </a>
                 
-            <nav id="header-nav">
-                <ul>
+            <nav>
+                <ul id="nav-lista">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Catálogo</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
                 
-            <button id="header-carrito"">
+            <button id="header-carrito">
                 <img src="assets/icons/carrito.svg" alt="Ver Carrito">
                 <span id="contador-carrito">0</span>
             </button>
         </div>`;
     document.body.prepend(header);
+    
+    // Para detectar pagina actual y dejar activo el boton de enlace
+    const paginaActual = window.location.pathname.split("/").pop();
+    const enlacesNav = header.querySelectorAll("#nav-lista a");
+    enlacesNav.forEach(enlace =>{
+        const hrefEnlace = enlace.getAttribute("href");
+        if(paginaActual === hrefEnlace || (paginaActual === "" && hrefEnlace === "index.html")) {
+            enlace.classList.add("active");
+        }
+    });
    
     // Panel para el carrito (oculto), y no crear otro HTML por que la consigna no deja 
     const panel = document.createElement("aside");
     panel.id = "panel-carrito";
-    panel.classList.add("oculto");  // No se ve no se ve en lo oscuro no se ve
+    panel.classList.add("oculto");  // No se debe ver apenas abris la pagina
     panel.innerHTML = `
         <div class="panel-cabecera">
             <h2>Tu Compra</h2>
-            <button id="btn-cerrar-panel">X</button>
+            <button id="boton-cerrar-panel">X</button>
         </div>
         <div id="panel-contenido"></div>
         <div class="panel-pie">
             <h3 id="panel-total">Total: $0</h3>
-            <button id="btn-vaciar-panel" class="btn-secundario">Vaciar Carrito</button>
+            <button id="boton-vaciar-panel" class="boton-secundario">Vaciar Carrito</button>
             <button class="boton-primario">Ir al Pago</button>
         </div>`;
     document.body.appendChild(panel);
@@ -48,9 +58,13 @@ export function cargarHeader() {
         renderizarCarrito();
     });
 
-    document.querySelector("#btn-cerrar-panel").addEventListener("click", () => {
+    document.querySelector("#boton-cerrar-panel").addEventListener("click", () => {
         document.querySelector("#panel-carrito").classList.add("oculto");
     });
+    
+    // Para medir la altura exacta del header ya renderizado
+    const alturaHeader = header.offsetHeight;
+    document.documentElement.style.setProperty('--alto-header', `${alturaHeader}px`);
     
     iniciarCarrito();
 }
@@ -130,6 +144,7 @@ export function mostrarProductos(arrayMuebles, contenedorDestino) {
         
         const boton = document.createElement("button");
         boton.textContent = "Añadir al Carrito";
+        boton.classList.add("boton-primario");
         boton.addEventListener("click", function(evento) {
             evento.stopPropagation();
             agregarAlCarrito(mueble);

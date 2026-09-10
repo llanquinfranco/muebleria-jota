@@ -1,16 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap');
 
+:root {
+    /* Colores */
+    --color-primary: #A0522D;
+    --color-secondary: #87A96B;
+    --color-background: #F5E6D3;
+    --color-details: #D4A437;
+    --color-femenine: #C47A6D; /* En donde se usaria esta paleta no */
+    --color-button: #6b5344;
+    --color-header: #fffdf9;
+    --color-footer: #402115;
+    
+    /* Tipografía */
+    --font-title: "Playfair Display", Georgia;
+    --font-body: "Inter", sans-serif;
+    
+}
 
 /* -------------------------------------
                 GLOBALES 
 ------------------------------------- */
 
-/* Textos del cuerpo */
+/* Texto del cuerpo */
 body {
-    background-color: #F5E6D3;      /* Fondos principales, fotografía */
+    background-color: var(--color-background);
     color: black;
-    font-family: 'Inter', sans-serif;
-    font-size: 11pt;
+    font-family: var(--font-body);
+    font-size: 12pt;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -18,15 +34,15 @@ body {
 
 /* Títulos principales */
 h1, h2, h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    color: #A0522D;
+    font-family: var(--font-title);
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    margin-top: 0;
 }
 
 p, li {
-    margin: 0 0 8px 0;
+    padding: 0;
+    margin: 0;
 }
 
 ul {
@@ -41,23 +57,12 @@ a {
     transition: color 0.3s ease;
 }
 
-/*
-a:hover {
-    color: #87A96B;
-} */
-
-
-
-/* ---------------------------------------
-                index.html
---------------------------------------- */
-
-/* Header */
+/* HEADER */
 header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: #F5E6D3;
+    background-color: var(--color-header);
     box-shadow: 0 4px 10px rgba(160, 82, 45, 0.1);
 }
 
@@ -74,11 +79,12 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: auto;
+    padding: 0 30px;
     box-sizing: border-box;
     
-    color: #A0522D;
-    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--color-primary);
+    font-family: var(--font-title);
     font-size: 36px;
     font-weight: 700;
     text-decoration: none;
@@ -88,83 +94,276 @@ header {
     transition: all 0.3s ease;
 }
 
+#header-logo img {
+    width: 60px;
+    height: auto;
+}
+
 #header-logo:hover {
     transform: scale(1.02);
 }
 
-#header-logo img {
-    width: 45px;
-    height: auto;
-}
-
-#header-nav ul {
+#nav-lista {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 50px;
+    font-family: var(--font-body);
 }
 
-#header-nav a {
+#nav-lista a {
     display: inline-block;
     color: black;
-    border: 2px solid #a0522d;
-    font-weight: 500;
+    padding: 5px 16px;
+    border-radius: 12px;
+    font-weight: 600;
     font-size: 16px;
     transition: color 0.3s ease;
 }
 
-#header-nav a:hover {
-    /* color: #87A96B; */
+#nav-lista a.active {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+}
+
+#nav-lista a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-background);
     transform: scale(1.02);
 }
 
 #header-carrito {
-    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    gap: 8px;
+    padding: 5px 16px;
+}
+
+#header-carrito:hover {
+    background-color: var(--color-background);
+    transform: scale(1.02);
+}
+
+#header-carrito img {
+    width: 28px;
+    height: auto;
+}
+
+#contador-carrito {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* =========================================
+   PANEL LATERAL DEL CARRITO
+   ========================================= */
+#panel-carrito {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background-color: #F5E6D3; /* Alabastro Cálido */
+    box-shadow: -20px 0 25px rgba(160, 82, 45, 0.2);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+/* Clase dinámica para esconder el panel hacia la derecha */
+#panel-carrito.oculto {
+    transform: translateX(100%);
+    box-shadow: none;
+}
+
+.panel-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #A0522D; /* Siena Tostado */
+    color: #F5E6D3;
+}
+
+#boton-cerrar-panel {
+    background: transparent;
+    border: none;
+    color: #F5E6D3;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#panel-contenido {
+    flex-grow: 1; /* Empuja el pie hacia abajo */
+    padding: 20px;
+    overflow-y: auto; /* Permite scroll vertical */
+}
+
+/* Fila individual de cada producto */
+.fila-panel {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.fila-panel img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.fila-info {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+.fila-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #A0522D;
+}
+
+.fila-subtotal {
+    font-weight: bold;
+    color: #87A96B; /* Verde Salvia */
+    margin: 0;
+}
+
+/* Controles de + y - */
+.controles-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.controles-cantidad button {
+    background-color: transparent;
+    border: 1px solid #A0522D;
+    color: #A0522D;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.controles-cantidad button:hover {
+    background-color: #A0522D;
+    color: white;
+}
+
+.controles-cantidad span {
+    font-weight: 500;
+    min-width: 15px;
+    text-align: center;
+}
+
+.btn-eliminar-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Caja de totales abajo */
+.panel-pie {
+    padding: 20px;
+    border-top: 2px solid #ccc;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#panel-total {
+    margin: 0 0 10px 0;
+    color: #A0522D;
+    text-align: right;
+}
+
+#boton-vaciar-panel {
+    background: transparent;
+    color: #A0522D;
+    border: 2px solid #A0522D;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#boton-vaciar-panel:hover {
+    background-color: #A0522D;
+    color: white;
 }
 
 #hero-banner {
-    background-color: #A0522D;
-    color: #F5E6D3;
-    padding: 120px 40px; 
-    text-align: center;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 70%), url('../assets/img/hero-muebleria.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 0 8%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    min-height: 50vh;
+    min-height: calc(100dvh - var(--alto-header));
     margin-bottom: 25px;
 }
 
 .hero-contenido {
-    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 700px;
 }
 
 .hero-contenido h1 {
-    color: #F5E6D3; 
+    color: var(--color-background);
     font-size: 52px; 
     margin-bottom: 20px;
 }
 
 .hero-contenido p {
-    font-weight: 300;
+    color: var(--color-background);
+    font-weight: 400;
     font-size: 14pt;
     margin-bottom: 35px;
 }
 
 .boton-primario {
-    display: inline-block;
-    background-color: #87A96B;
-    color: #fffdf9;
-    font-family: 'Inter', sans-serif;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 15px 35px;
-    border-radius: 5px;
+    letter-spacing: 0.1em;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-radius: 35px;
+    padding: 12px 20px;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .boton-primario:hover {
-    background-color: #F5E6D3;
-    color: #A0522D;
+    background-color: var(--color-background);
+    color: var(--color-primary);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
@@ -257,12 +456,11 @@ footer {
                 productos.html
 ------------------------------------------- */
 
-
 #buscador {
     display: block;
-    width: 90%;
-    margin: 20px auto;
-    padding: 12px 20px;
+    width: 60%;
+    margin: 40px auto;
+    padding: 15px 25px;
 
     background-color: #fffdf9;
     border: 2px solid #a0522d;
@@ -270,7 +468,7 @@ footer {
     box-shadow: 2px 4px 10px rgba(160, 82, 45, 0.15);
 
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: #a0522d;
     outline: none;
 }
@@ -279,15 +477,15 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
-    padding: 15px;
+    gap: 40px;
+        padding: 20px;
 }
 
 .tarjeta-producto {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 90%;
+    width: 30%;
     height: auto;
     min-height: 400px;
     padding: 15px;
@@ -313,7 +511,7 @@ footer {
 
 .tarjeta-producto h2 {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 22px;
+    font-size: 35px;
     margin: 10px 0;
     color: #a0522d;
     text-transform: uppercase;
@@ -321,7 +519,7 @@ footer {
 }
 
 .tarjeta-producto img {
-    height: 200px;
+    height: 250px;
     width: 100%;
     object-fit: contain;
     margin-bottom: 15px;
@@ -335,6 +533,8 @@ footer {
     margin-top: auto;
 }
 
+
+/*agregar clase boton primario asi unifico todo*/
 .tarjeta-producto button {
     font-family: 'Inter', sans-serif;
     font-weight: 500;
@@ -466,184 +666,6 @@ footer {
 
 
 
-/*
-    CARRITO
-*/
-#header-carrito {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    gap: 8px;
-}
-
-#header-carrito img {
-    width: 28px;
-    height: auto;
-}
-
-#contador-carrito {
-    background-color: #87A96B;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-/* =========================================
-   PANEL LATERAL DEL CARRITO
-   ========================================= */
-#panel-carrito {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 400px;
-    height: 100vh;
-    background-color: #F5E6D3; /* Alabastro Cálido */
-    box-shadow: -5px 0 15px rgba(160, 82, 45, 0.2);
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-}
-
-/* Clase dinámica para esconder el panel hacia la derecha */
-#panel-carrito.oculto {
-    transform: translateX(100%); 
-}
-
-.panel-cabecera {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #A0522D; /* Siena Tostado */
-    color: #F5E6D3;
-}
-
-#btn-cerrar-panel {
-    background: transparent;
-    border: none;
-    color: #F5E6D3;
-    font-size: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#panel-contenido {
-    flex-grow: 1; /* Empuja el pie hacia abajo */
-    padding: 20px;
-    overflow-y: auto; /* Permite scroll vertical */
-}
-
-/* Fila individual de cada producto */
-.fila-panel {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ccc;
-}
-
-.fila-panel img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 4px;
-}
-
-.fila-info {
-    flex-grow: 1; /* Ocupa el espacio disponible */
-}
-
-.fila-info h4 {
-    margin: 0 0 5px 0;
-    font-size: 14px;
-    color: #A0522D;
-}
-
-.fila-subtotal {
-    font-weight: bold;
-    color: #87A96B; /* Verde Salvia */
-    margin: 0;
-}
-
-/* Controles de + y - */
-.controles-cantidad {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 8px 0;
-}
-
-.controles-cantidad button {
-    background-color: transparent;
-    border: 1px solid #A0522D;
-    color: #A0522D;
-    width: 25px;
-    height: 25px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.controles-cantidad button:hover {
-    background-color: #A0522D;
-    color: white;
-}
-
-.controles-cantidad span {
-    font-weight: 500;
-    min-width: 15px;
-    text-align: center;
-}
-
-.btn-eliminar-item {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-/* Caja de totales abajo */
-.panel-pie {
-    padding: 20px;
-    border-top: 2px solid #ccc;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#panel-total {
-    margin: 0 0 10px 0;
-    color: #A0522D;
-    text-align: right;
-}
-
-#btn-vaciar-panel {
-    background: transparent;
-    color: #A0522D;
-    border: 2px solid #A0522D;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-#btn-vaciar-panel:hover {
-    background-color: #A0522D;
-    color: white;
-}
 
 
 
@@ -659,7 +681,7 @@ footer {
     text-align: center;
 }
 
-
+/*
 @media (min-width: 768px) {
     #buscador {
         width: 60%;
@@ -689,4 +711,4 @@ footer {
         font-size: 12pt;
         line-height: 1.6;
     }
-}
+}*/
