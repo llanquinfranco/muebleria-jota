@@ -8,7 +8,7 @@
     --color-details: #D4A437;
     --color-femenine: #C47A6D; /* En donde se usaria esta paleta no */
     --color-button: #6b5344;
-    --color-header: #fffdf9;
+    --color-header: #f3eee5;
     --color-footer: #402115;
     
     /* Tipografía */
@@ -33,7 +33,7 @@ body {
 }
 
 /* Títulos principales */
-h1, h2, h3 {
+h1, h2, h3, h4 {
     font-family: var(--font-title);
     font-weight: 700;
     text-transform: uppercase;
@@ -171,8 +171,8 @@ header {
     right: 0;
     width: 400px;
     height: 100vh;
-    background-color: #F5E6D3; /* Alabastro Cálido */
-    box-shadow: -20px 0 25px rgba(160, 82, 45, 0.2);
+    background-color: var(--color-background);
+    /*box-shadow: -1px 0 5px rgba(222, 166, 140, 0.505);*/
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -185,28 +185,57 @@ header {
     box-shadow: none;
 }
 
+#overlay-carrito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 9998;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#overlay-carrito.oculto {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .panel-cabecera {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #A0522D; /* Siena Tostado */
-    color: #F5E6D3;
+    border-bottom: 3px solid var(--color-primary);
+    color: var(--color-primary);
 }
 
 #boton-cerrar-panel {
-    background: transparent;
-    border: none;
-    color: #F5E6D3;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
     font-size: 20px;
     cursor: pointer;
     font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+#boton-cerrar-panel:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    transform: scale(1.02);
 }
 
 #panel-contenido {
-    flex-grow: 1; /* Empuja el pie hacia abajo */
+    flex-grow: 1;
     padding: 20px;
-    overflow-y: auto; /* Permite scroll vertical */
+    overflow-y: auto;
+    background-color: var(--color-header);
 }
 
 /* Fila individual de cada producto */
@@ -216,7 +245,7 @@ header {
     gap: 15px;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--color-primary);
 }
 
 .fila-panel img {
@@ -227,18 +256,18 @@ header {
 }
 
 .fila-info {
-    flex-grow: 1; /* Ocupa el espacio disponible */
+    flex-grow: 1;
 }
 
 .fila-info h4 {
     margin: 0 0 5px 0;
-    font-size: 14px;
-    color: #A0522D;
+    font-size: 18px;
+    color: black;
 }
 
 .fila-subtotal {
     font-weight: bold;
-    color: #87A96B; /* Verde Salvia */
+    color: var(--color-primary);
     margin: 0;
 }
 
@@ -252,12 +281,13 @@ header {
 
 .controles-cantidad button {
     background-color: transparent;
-    border: 1px solid #A0522D;
-    color: #A0522D;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
     width: 25px;
     height: 25px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 18px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -266,8 +296,9 @@ header {
 }
 
 .controles-cantidad button:hover {
-    background-color: #A0522D;
-    color: white;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    transform: scale(1.02);
 }
 
 .controles-cantidad span {
@@ -276,18 +307,34 @@ header {
     text-align: center;
 }
 
-.btn-eliminar-item {
-    background: none;
+.boton-eliminar-item {
+    background: transparent;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+.boton-eliminar-item .icono-basura {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.boton-eliminar-item:hover {
+    transform: scale(1.1);
 }
 
 /* Caja de totales abajo */
 .panel-pie {
     padding: 20px;
-    border-top: 2px solid #ccc;
-    background-color: white;
+    border-top: 3px solid var(--color-primary);
+    background-color: var(--color-background);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -295,24 +342,13 @@ header {
 
 #panel-total {
     margin: 0 0 10px 0;
-    color: #A0522D;
-    text-align: right;
+    text-align: center;
 }
 
-#boton-vaciar-panel {
-    background: transparent;
-    color: #A0522D;
-    border: 2px solid #A0522D;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-#boton-vaciar-panel:hover {
-    background-color: #A0522D;
-    color: white;
+.panel-pie .boton-primario,
+.panel-pie .boton-secundario {
+    align-self: center; /* Evita el estiramiento y los centra en el panel */
+    width: fit-content; /* Asegura que solo ocupen el ancho de su texto + padding */
 }
 
 #hero-banner {
@@ -325,7 +361,6 @@ header {
     justify-content: flex-start;
     align-items: center;
     min-height: calc(100dvh - var(--alto-header));
-    margin-bottom: 25px;
 }
 
 .hero-contenido {
@@ -349,12 +384,94 @@ header {
     margin-bottom: 35px;
 }
 
+#productos-destacados {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 20px;
+}
+
+#cabecera-destacados {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+#contenedor-destacados {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px
+}
+
+.tarjeta-destacado {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.tarjeta-destacado:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(160, 82, 45, 0.15);
+}
+
+.tarjeta-destacado img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background-color: #e8d9c4;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.tarjeta-destacado h2 {
+    margin: 0 20px 10px 20px;
+}
+
+.tarjeta-destacado p {
+    color: var(--color-primary);
+  font-size: 13pt;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: auto 20px 15px 20px;
+}
+
+.tarjeta-destacado .boton-primario {
+    align-self: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
 .boton-primario {
+    /* Normalización para que <a> y <button> sean idénticos */
+    display: inline-block; 
+    text-align: center;
+    text-decoration: none; 
+    box-sizing: border-box;
+    border: none;
+    font-family: inherit;
+    margin-top: auto;
+    align-self: center;
+    
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     background-color: var(--color-primary);
     color: var(--color-background);
+    border: 2px solid var(--color-primary);
     border-radius: 35px;
     padding: 12px 20px;
     cursor: pointer;
@@ -362,57 +479,53 @@ header {
 }
 
 .boton-primario:hover {
-    background-color: var(--color-background);
+    background-color: var(--color-header);
     color: var(--color-primary);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-
-#productos-destacados {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#contenedor-destacados {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 15px;
-}
-
-#contenedor-destacados .tarjeta-producto {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 35%;
-    height: auto;
-    padding: 15px;
-    box-sizing: border-box;
-    color: black;
+.boton-secundario {
+    /* Normalización para que <a> y <button> sean idénticos */
+    display: inline-block; 
     text-align: center;
+    text-decoration: none; 
+    box-sizing: border-box;
+    border: none;
+    font-family: inherit;
+    
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: var(--color-header);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 35px;
+    padding: 12px 20px;
     cursor: pointer;
-    box-shadow: 5px 5px 10px #a0522d;
-    border: 2px solid #a0522d;
-    border-radius: 8px;
     transition: all 0.3s ease;
 }
 
+.boton-secundario:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
 /* Footer */
+footer {
+    background-color: var(--color-footer);
+    box-shadow: 0 -4px 10px rgba(160, 82, 45, 0.1);
+    color: var(--color-background);
+}
+
 #contenedor-footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 30px;
     padding: 15px;
-    
-}
-
-footer {
-    background-color: #F5E6D3;
-    box-shadow: 0 -4px 10px rgba(160, 82, 45, 0.1);
 }
 
 .footer-columna {
@@ -435,19 +548,23 @@ footer {
     margin: 0 0 5px 0;
 }
 
+#logo-footer {
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    filter: brightness(0) invert(1) opacity(0.85);
+}
+
 .icono-footer {
     width: 20px;
     height: 20px;
     object-fit: contain;
 }
 
-#icono-wpp {
-    transform: scale(1.6);
-}
-
 #footer-copyright {
     text-align: center;
     padding: 15px;
+    padding-top: 0;
 }
 
 

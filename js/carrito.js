@@ -59,7 +59,9 @@ export function renderizarCarrito() {
                 
                 <p class="fila-subtotal">$${subtotal}</p>
             </div>
-            <button class="boton-eliminar-item" data-id="${mueble.id}">🗑️</button>
+            <button class="boton-eliminar-item" data-id="${mueble.id}">
+                <img src="assets/icons/trash.svg" alt="Eliminar" class="icono-basura">
+            </button>
         `;
         contenedor.appendChild(fila);
     });

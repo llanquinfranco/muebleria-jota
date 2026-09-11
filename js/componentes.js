@@ -34,6 +34,12 @@ export function cargarHeader() {
             enlace.classList.add("active");
         }
     });
+    
+    // Crear el fondo oscuro (overlay) dinámicamente
+    const overlay = document.createElement("div");
+    overlay.id = "overlay-carrito";
+    overlay.classList.add("oculto");
+    document.body.appendChild(overlay);
    
     // Panel para el carrito (oculto), y no crear otro HTML por que la consigna no deja 
     const panel = document.createElement("aside");
@@ -41,7 +47,7 @@ export function cargarHeader() {
     panel.classList.add("oculto");  // No se debe ver apenas abris la pagina
     panel.innerHTML = `
         <div class="panel-cabecera">
-            <h2>Tu Compra</h2>
+            <h2>Mi carrito</h2>
             <button id="boton-cerrar-panel">X</button>
         </div>
         <div id="panel-contenido"></div>
@@ -55,11 +61,19 @@ export function cargarHeader() {
     // Eventos para abrir y cerrar el panel
     document.querySelector("#header-carrito").addEventListener("click", () => {
         document.querySelector("#panel-carrito").classList.remove("oculto");
+        document.querySelector("#overlay-carrito").classList.remove("oculto");
         renderizarCarrito();
     });
 
     document.querySelector("#boton-cerrar-panel").addEventListener("click", () => {
         document.querySelector("#panel-carrito").classList.add("oculto");
+        document.querySelector("#overlay-carrito").classList.add("oculto");
+    });
+    
+    // Si tocan el overlay del carrito, también se cierra
+    document.querySelector("#overlay-carrito").addEventListener("click", () => {
+        document.querySelector("#panel-carrito").classList.add("oculto");
+        document.querySelector("#overlay-carrito").classList.add("oculto");
     });
     
     // Para medir la altura exacta del header ya renderizado
@@ -75,12 +89,9 @@ export function cargarFooter() {
         <div id="contenedor-footer">
                 
             <div class="footer-columna">
-                <h3>Navegación</h3>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Catálogo de productos</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
+                <img src="assets/icons/logo.svg" alt="Hermanos Jota" id="logo-footer"> </img>
+                <p><strong>Hermanos Jota</strong></p>
+                <p>Somos el redescubrimiento de un arte olvidado</p>
             </div>
                 
             <div class="footer-columna">
@@ -95,18 +106,24 @@ export function cargarFooter() {
                 
             <div class="footer-columna">
                 <h3>Contactanos</h3>
-                <p> <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="icono-footer" id="icono-wpp">
+                <p> <img src="assets/icons/whatsapp-white.svg" alt="WhatsApp" class="icono-footer" id="icono-wpp">
                     +54 11 4567-8900
                 </p>
-                <p> <img src="assets/icons/gmail.svg" alt="Gmail" class="icono-footer">
+                <p> <img src="assets/icons/gmail-white.svg" alt="Gmail" class="icono-footer">
                     info@hermanosjota.com.ar
                 </p>
-                <p> <img src="assets/icons/gmail.svg" alt="Gmail" class="icono-footer">
+                <p> <img src="assets/icons/gmail-white.svg" alt="Gmail" class="icono-footer">
                     ventas@hermanosjota.com.ar
                 </p>
-                <p> <img src="assets/icons/instagram.svg" alt="Instagram" class="icono-footer">
+                <p> <img src="assets/icons/instagram-white.svg" alt="Instagram" class="icono-footer">
                     @hermanosjota_ba
                 </p>
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Catálogo de productos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
             </div>
                 
         </div>
