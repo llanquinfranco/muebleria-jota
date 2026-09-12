@@ -1,5 +1,5 @@
 // Las functions que deben ser llamadas por varios html, van separadas asi se evita la duplicacion, y las llamo desde otro js. En este caso el header/footer ya no se duplican cada vez que paso de inicio a catalogo
-import { iniciarCarrito, agregarAlCarrito, renderizarCarrito} from "./carrito.js";
+import { iniciarCarrito, renderizarCarrito} from "./carrito.js";
 
 export function cargarHeader() {
     const header = document.createElement("header");
@@ -134,40 +134,4 @@ export function cargarFooter() {
     document.body.appendChild(footer);
 }
 
-// Grilla de tarjetas de productos
-export function mostrarProductos(arrayMuebles, contenedorDestino) {
-    contenedorDestino.innerHTML = "";
 
-    arrayMuebles.forEach((mueble) => {
-        const divProducto = document.createElement("div");
-        divProducto.classList.add("tarjeta-producto");
-
-        // Cada producto detalla su enlace
-        divProducto.addEventListener("click", function () {
-            window.location.href = `producto.html?id=${mueble.id}`;
-        });
-
-        const nombre = document.createElement("h2");
-        nombre.textContent = mueble.nombre;
-        divProducto.appendChild(nombre);
-
-        const imagen = document.createElement("img");
-        imagen.src = mueble.imagenURL;
-        divProducto.appendChild(imagen);
-
-        const descripcion = document.createElement("p");
-        descripcion.textContent = mueble.descripcion;
-        divProducto.appendChild(descripcion);
-        
-        const boton = document.createElement("button");
-        boton.textContent = "Añadir al Carrito";
-        boton.classList.add("boton-primario");
-        boton.addEventListener("click", function(evento) {
-            evento.stopPropagation();
-            agregarAlCarrito(mueble);
-        });
-        divProducto.appendChild(boton);
-
-        contenedorDestino.appendChild(divProducto);
-    });
-}

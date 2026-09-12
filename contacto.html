@@ -17,22 +17,22 @@ Carrito simulado con contador en header -->
     <body>
         <main>
             <section id="contacto-formulario">
-                <h2>Contáctenos</h2>
-                <p>Escribinos por cualquier consulta y te responderemos a la brevedad</p>
+                <h2>Centro de ayuda y contacto</h2>
+                <p>Completá los datos y te responderemos a la brevedad</p>
 
                 <form id="form-contacto">
                     <label for="nombre">Nombre y Apellido</label>
-                    <input type="text" id="nombre" required />
+                    <input type="text" id="nombre" minlength="8" required />
 
                     <label for="correo">Correo Electrónico</label>
                     <input type="email" id="correo" required/>
 
-                    <label for="mensaje">Su Pregunta</label>
-                    <textarea name="mensaje" id="" rows="5" required></textarea>
+                    <label for="mensaje">Tu Consulta / Feedback</label>
+                    <textarea name="mensaje" id="" rows="5" minlength="15" required></textarea>
 
                     <button type="submit" class="boton-primario">Enviar Mensaje</button>
                 </form>
-                <div id="mensaje-exito"></div>
+                <h3 id="mensaje-exito" style="display: none;">¡Tu consulta fue enviada correctamente y ya la recibimos!</h3>
             </section>
         </main>
 

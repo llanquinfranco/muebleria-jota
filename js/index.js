@@ -1,5 +1,6 @@
 import { cargarHeader, cargarFooter } from "./componentes.js";
 import { pedirDatos } from "./datos.js";
+import { agregarAlCarrito } from "./carrito.js";
 
 cargarHeader();
 

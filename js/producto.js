@@ -11,13 +11,16 @@ cargarDetalle();
 
 async function cargarDetalle() {
     const contenedorImagen = document.querySelector("#detalle-imagen");
-    const contenedorCompra = document.querySelector("#detalle-compra");
-    const contenedorDescripcion = document.querySelector("#detalle-descripcion");
+    const contenedorInfo = document.querySelector("#detalle-info");
+    const contenedorPrincipal = document.querySelector("#contenedor-detalle");
+    const mensajeCarga = document.querySelector("#mensaje-carga");
     
-    contenedorDescripcion.innerHTML = "<h2 style='text-align: center; width: 100%; margin-top: 50px;'>Cargando Detalle...</h2>";
+    mensajeCarga.style.display = "block";
+    contenedorPrincipal.style.display = "none";
+    
+    contenedorInfo.innerHTML = "<h2 style='text-align: center; width: 100%; margin-top: 50px;'>Cargando Detalle...</h2>";
     
     const datos = await pedirDatos();
-    
     const mueble = datos.find(item => item.id == idProducto);
     
     if(mueble) {
@@ -25,28 +28,32 @@ async function cargarDetalle() {
         
         contenedorImagen.innerHTML = `<img src="${mueble.imagenURL}" alt="${mueble.nombre}">`;
         
-        contenedorCompra.innerHTML = `
-            <h1>${mueble.nombre}</h1>
-            <p>$${mueble.precio}</p>
-            <button id="boton-agregar" class="boton-primario">Añadir al Carrito</button>
-        `;
-        
-        let listaDetalles = "<ul id='detalle-especificaciones'>";
+        let listaDetalles = "";
         Object.entries(mueble.detalles).forEach(([clave, valor]) => {
             const claveMayuscula = clave.charAt(0).toUpperCase() + clave.slice(1);
-            listaDetalles += `<li><strong>${claveMayuscula}:</strong> ${valor}</li>`;
+            listaDetalles += `<dt>${claveMayuscula}</dt><dd>${valor}</dd>`;
         });
-        listaDetalles += "</ul>";
         
-        contenedorDescripcion.innerHTML = `
-            <p>${mueble.descripcion}</p>
-            ${listaDetalles}
+        contenedorInfo.innerHTML = `
+            <p>${mueble.categoria}</p>
+            <h1>${mueble.nombre}</h1>
+            <div class="precio-y-boton">
+                <p class="precio">$ ${mueble.precio.toLocaleString("es-AR")}</p>
+                <button id="boton-agregar" class="boton-primario">Añadir al Carrito</button>
+            </div>
+            <p class="descripcion">${mueble.descripcion}</p>
+            <dl id="detalle-especificaciones">
+                <h3>DETALLES DE FABRICACIÓN</h3>
+                ${listaDetalles}
+            </dl>
         `;
         
-        // El evento del botón descomentado para el siguiente paso
         document.querySelector("#boton-agregar").addEventListener("click", () => {
             agregarAlCarrito(mueble);
         });
+        
+        mensajeCarga.style.display = "none";
+        contenedorPrincipal.style.display = "grid";
         
     } else {
         document.title = "Producto no Encontrado - Hermanos Jota";

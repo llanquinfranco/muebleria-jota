@@ -71,7 +71,7 @@ export function renderizarCarrito() {
     // EVENTOS: Eliminar completo
     document.querySelectorAll(".boton-eliminar-item").forEach(btn => {
         btn.addEventListener("click", (e) => {
-            eliminarDelCarrito(e.target.getAttribute("data-id"));
+            eliminarDelCarrito(e.currentTarget.getAttribute("data-id"));
             renderizarCarrito(); 
         });
     });
