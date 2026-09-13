@@ -22,6 +22,7 @@ export function cargarHeader() {
                 <img src="assets/icons/carrito.svg" alt="Ver Carrito">
                 <span id="contador-carrito">0</span>
             </button>
+            <button id="boton-menu">☰</button>
         </div>`;
     document.body.prepend(header);
     
@@ -80,6 +81,13 @@ export function cargarHeader() {
     const alturaHeader = header.offsetHeight;
     document.documentElement.style.setProperty('--alto-header', `${alturaHeader}px`);
     
+    const botonMenu = document.querySelector("#boton-menu");
+    const navLista = document.querySelector("#nav-lista");
+
+    botonMenu.addEventListener("click", () => {
+    navLista.classList.toggle("activo");
+});
+    
     iniciarCarrito();
 }
 
@@ -88,10 +96,12 @@ export function cargarFooter() {
     footer.innerHTML = `
         <div id="contenedor-footer">
                 
-            <div class="footer-columna">
-                <img src="assets/icons/logo.svg" alt="Hermanos Jota" id="logo-footer"> </img>
-                <p><strong>Hermanos Jota</strong></p>
-                <p>Somos el redescubrimiento de un arte olvidado</p>
+            <div class="footer-columna columna-logo">
+                <img src="assets/icons/logo.svg" alt="Hermanos Jota" id="logo-footer">
+                <div class="logo-info">
+                    <p><strong>Hermanos Jota</strong></p>
+                    <p>Somos el redescubrimiento de un arte olvidado</p>
+                </div>
             </div>
                 
             <div class="footer-columna">
