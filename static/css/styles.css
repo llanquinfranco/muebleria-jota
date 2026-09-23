@@ -22,21 +22,30 @@
 }
 
 /* ==========================================================================
-   GLOBALES
+   GLOBALES (MOTOR RESPONSIVE REM)
    ========================================================================== */
 
-/* --- Texto del cuerpo --- */
+html {
+    font-size: 11pt;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 12pt;
+    }
+}
+
 body {
     background-color: var(--color-background);
     color: black;
     font-family: var(--font-body);
-    font-size: 11pt;
+    font-size: 1rem; /* 11pt en celu, 12pt en PC */
     line-height: 1.6;
     margin: 0;
     padding: 0;
 }
 
-/* --- Titulos principales --- */
+/* --- Títulos principales --- */
 h1,
 h2,
 h3,
@@ -58,15 +67,11 @@ h4 {
 }
 
 p,
-li {
-    padding: 0;
-    margin: 0;
-}
-
+li,
 ul {
-    list-style: none;
     padding: 0;
     margin: 0;
+    list-style: none;
 }
 
 a {
@@ -75,145 +80,60 @@ a {
     transition: color 0.3s ease;
 }
 
-@media (min-width: 768px) {
-    body {
-        font-size: 12pt;
-    }
-}
-
 /* ==========================================================================
    COMPONENTES REUTILIZABLES
    ========================================================================== */
 
-.boton-primario {
-    /* Normalización para que <a> y <button> sean idénticos */
+.boton-primario,
+.boton-secundario {
     display: inline-block;
     text-align: center;
     text-decoration: none;
     box-sizing: border-box;
-    border: none;
+    border: 2px solid var(--color-primary);
+    border-radius: 35px;
     font-family: inherit;
-    margin-top: auto;
-    align-self: center;
-    font-size: 10pt;
+    font-size: 0.9rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    background-color: var(--color-primary);
-    color: var(--color-background);
-    border: 2px solid var(--color-primary);
-    border-radius: 35px;
     padding: 12px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.boton-primario {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+}
+
+.boton-secundario {
+    background-color: var(--color-header);
+    color: var(--color-primary);
+}
+
+.boton-primario:hover,
+.boton-secundario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .boton-primario:hover {
     background-color: var(--color-header);
     color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.boton-secundario {
-    /* Normalización para que <a> y <button> sean idénticos */
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    box-sizing: border-box;
-    border: none;
-    font-family: inherit;
-    font-size: 10pt;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    background-color: var(--color-header);
-    color: var(--color-primary);
-    border: 2px solid var(--color-primary);
-    border-radius: 35px;
-    padding: 12px 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .boton-secundario:hover {
     background-color: var(--color-primary);
     color: var(--color-background);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-@media (min-width: 768px) {
-    .boton-primario {
-        /* Normalización para que <a> y <button> sean idénticos */
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        box-sizing: border-box;
-        border: none;
-        font-family: inherit;
-        margin-top: auto;
-        align-self: center;
-
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        background-color: var(--color-primary);
-        color: var(--color-background);
-        border: 2px solid var(--color-primary);
-        border-radius: 35px;
-        padding: 12px 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        flex-shrink: 0;
-        margin: 0;
-    }
-
-    .boton-primario:hover {
-        background-color: var(--color-header);
-        color: var(--color-primary);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    }
-
-    .boton-secundario {
-        /* Normalización para que <a> y <button> sean idénticos */
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        box-sizing: border-box;
-        border: none;
-        font-family: inherit;
-
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        background-color: var(--color-header);
-        color: var(--color-primary);
-        border: 2px solid var(--color-primary);
-        border-radius: 35px;
-        padding: 12px 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        flex-shrink: 0;
-        margin: 0;
-    }
-
-    .boton-secundario:hover {
-        background-color: var(--color-primary);
-        color: var(--color-background);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    }
 }
 
 /* ==========================================================================
    LAYOUT / ESTRUCTURA
    ========================================================================== */
 
-/* --- Header --- */
 header {
     position: sticky;
     top: 0;
@@ -235,7 +155,7 @@ header {
     align-items: center;
     color: var(--color-primary);
     font-family: var(--font-title);
-    font-size: 24px;
+    font-size: 1.8rem;
     font-weight: 700;
     text-decoration: none;
     transition: transform 0.3s ease;
@@ -278,7 +198,7 @@ header {
     color: white;
     padding: 3px 7px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
@@ -305,7 +225,7 @@ header {
     color: black;
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1rem;
     padding: 10px;
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -329,7 +249,7 @@ header {
     }
 
     #header-logo {
-        font-size: 36px;
+        font-size: 2.2rem;
     }
 
     #header-logo img {
@@ -349,21 +269,19 @@ header {
 
     #nav-lista a {
         padding: 8px 16px;
-        font-size: 16px;
     }
 }
 
 /* --- Footer --- */
 footer {
     background-color: var(--color-footer);
-    box-shadow: 0 -4px 10px rgba(160, 82, 45, 0.1);
     color: var(--color-background);
 }
 
 #contenedor-footer {
     display: flex;
     flex-direction: column;
-    padding: 30px 20px;
+    padding: 30px 20px 15px 20px;
 }
 
 .footer-columna {
@@ -376,8 +294,9 @@ footer {
 
 .footer-columna h3 {
     align-self: flex-start;
-    font-size: 18pt;
-    margin-bottom: 15px;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
 }
 
 .footer-columna p,
@@ -385,12 +304,13 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
 }
 
 .columna-logo {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .logo-info {
@@ -408,31 +328,36 @@ footer {
 }
 
 .icono-footer {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
 }
 
 #footer-copyright {
     text-align: center;
-    padding: 20px;
-    border-top: 1px solid var(--color-background);
+    padding: 15px;
+    border-top: 1px solid rgba(245, 230, 211, 0.2);
+    font-size: 0.85rem;
+    margin-top: 10px;
 }
 
 @media (min-width: 768px) {
     #contenedor-footer {
-        flex-direction: row; /* Vuelven a estar una al lado de la otra */
+        flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 40px 15px;
+        justify-content: space-between;
+        padding: 35px 40px 15px 40px;
     }
 
     .footer-columna {
         width: 22%;
+        margin-bottom: 0;
     }
 
     .footer-columna h3 {
-        align-self: center;
+        align-self: flex-start;
+        font-size: 1rem;
+        margin-bottom: 12px;
     }
 
     .columna-logo {
@@ -441,21 +366,20 @@ footer {
     }
 
     #logo-footer {
-        width: 100%;
-        margin-bottom: 15px;
+        width: 180px;
+        margin-bottom: 12px;
     }
 }
 
 /* --- Carrito --- */
-
 #panel-carrito {
     position: fixed;
     top: 0;
     right: 0;
     width: 100%;
+    max-width: 400px;
     height: 100vh;
     background-color: var(--color-background);
-    /*box-shadow: -1px 0 5px rgba(222, 166, 140, 0.505);*/
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -544,7 +468,7 @@ footer {
 
 .fila-info h4 {
     margin: 0 0 5px 0;
-    font-size: 18px;
+    font-size: 1.2rem;
     color: black;
 }
 
@@ -628,14 +552,8 @@ footer {
 
 .panel-pie .boton-primario,
 .panel-pie .boton-secundario {
-    align-self: center; /* Evita el estiramiento y los centra en el panel */
-    width: fit-content; /* Asegura que solo ocupen el ancho de su texto + padding */
-}
-
-@media (min-width: 768px) {
-    #panel-carrito {
-        width: 400px;
-    }
+    align-self: center;
+    width: fit-content;
 }
 
 /* ==========================================================================
@@ -666,13 +584,13 @@ footer {
 
 .hero-contenido h1 {
     color: var(--color-background);
-    font-size: 36pt;
+    font-size: 3rem;
 }
 
 .hero-contenido p {
     color: var(--color-background);
     font-weight: 400;
-    font-size: 12pt;
+    font-size: 1.1rem;
     margin-bottom: 35px;
 }
 
@@ -699,7 +617,7 @@ footer {
 
 #cabecera-destacados h2 {
     margin: 0;
-    font-size: 20px;
+    font-size: 1.3rem;
 }
 
 #contenedor-destacados {
@@ -722,7 +640,7 @@ footer {
     cursor: pointer;
     transition:
         transform 0.3s ease,
-        box-shadow 0.3 ease;
+        box-shadow 0.3s ease;
     text-align: left;
 }
 
@@ -741,13 +659,13 @@ footer {
 }
 
 .tarjeta-destacado h2 {
-    font-size: 20px;
+    font-size: 1.3rem;
     margin: 0 20px 10px 20px;
 }
 
 .tarjeta-destacado p {
     color: var(--color-primary);
-    font-size: 13pt;
+    font-size: 1.1rem;
     font-weight: bold;
     line-height: 1.5;
     margin: auto 20px 15px 20px;
@@ -765,12 +683,12 @@ footer {
     }
 
     .hero-contenido h1 {
-        font-size: 52px;
+        font-size: 3rem;
         margin-bottom: 20px;
     }
 
     .hero-contenido p {
-        font-size: 14pt;
+        font-size: 1.3rem;
     }
 
     #productos-destacados {
@@ -782,7 +700,7 @@ footer {
     }
 
     #cabecera-destacados h2 {
-        font-size: 24px;
+        font-size: 1.6rem;
     }
 
     #contenedor-destacados {
@@ -795,7 +713,7 @@ footer {
     }
 
     .tarjeta-destacado h2 {
-        font-size: 16pt;
+        font-size: 1.2rem;
     }
 }
 
@@ -809,7 +727,7 @@ footer {
     border: 3px solid var(--color-primary);
     border-radius: 25px;
     box-shadow: 2px 4px 10px rgba(160, 82, 45, 0.15);
-    font-size: 15px;
+    font-size: 1rem;
     font-family: var(--font-body);
     outline: none;
     transition: all 0.3s ease;
@@ -865,13 +783,12 @@ footer {
 
 .tarjeta-producto h2 {
     margin: 0 20px 10px 20px;
-    font-size: 18pt;
-    /* min-height: 75px; */ /*ver mejor despues como queda */
+    font-size: 1.5rem;
 }
 
 .producto-precio {
     color: var(--color-primary);
-    font-size: 13pt;
+    font-size: 1.1rem;
     font-weight: bold;
     line-height: 1.5;
     margin: 0 20px 15px 20px;
@@ -880,7 +797,7 @@ footer {
 .producto-descripcion {
     margin: 0 20px 15px 20px;
     flex-grow: 1;
-    font-size: 11pt;
+    font-size: 1rem;
 }
 
 .tarjeta-producto .boton-primario {
@@ -892,7 +809,7 @@ footer {
 @media (min-width: 768px) {
     #buscador {
         width: 50%;
-        font-size: 18px;
+        font-size: 1.2rem;
     }
 
     #contenedor-catalogo {
@@ -905,11 +822,7 @@ footer {
     .tarjeta-producto {
         width: 25%;
         overflow: hidden;
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
     }
-
 }
 
 /* --- Detalle del producto (producto.html) --- */
@@ -958,7 +871,7 @@ footer {
 
 #detalle-info > p:first-child {
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: bold;
     letter-spacing: 1px;
     color: var(--color-primary);
@@ -980,7 +893,7 @@ footer {
 }
 
 .precio-y-boton .precio {
-    font-size: 32px;
+    font-size: 2.2rem;
     font-weight: bold;
     color: var(--color-primary);
     margin: 0;
@@ -1014,7 +927,6 @@ footer {
 }
 
 @media (min-width: 768px) {
-
     #contenedor-detalle {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1025,7 +937,6 @@ footer {
     #detalle-imagen img {
         width: 100%;
     }
-
 }
 
 /* --- Contacto (contacto.html) --- */
@@ -1068,7 +979,7 @@ footer {
     border-radius: 10px;
     margin-bottom: 10px;
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 1rem;
     box-sizing: border-box;
 }
 
@@ -1080,9 +991,7 @@ footer {
 }
 
 @media (min-width: 768px) {
-
     #form-contacto {
         width: 100%;
     }
-
 }
