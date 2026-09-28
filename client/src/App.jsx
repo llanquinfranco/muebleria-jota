@@ -1,18 +1,48 @@
 import { useState } from "react";
 import "./App.css";
+import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 
-function App() {
-    const [count, setCount] = useState(0);
+import Footer from "./components/Footer";
 
+function App() {
+    const [vista, setVista] = useState("home");
+    const [carrito, setCarrito] = useState([]);
+    
+    function agregarAlCarrito(producto) {
+        setCarrito([...carrito, producto]);
+    }
+    
+    
+    
+    
+    
     return (
         <>
+            <Navbar vista={vista} setVista={setVista} cantidad={carrito.length}/>
+            
+            <main>
+                
+                {vista === "home" && (
+                    <p>aaa</p>
+                    
+                    
+                    
+                )}
+                
+                {vista === "productos" && (
+                    <ProductList/>
+                    
+                    
+                )}
+                
+                
+                
+                
+            </main>
             
             
-            <ProductList/>
-            
-            
-            
+            <Footer setVista={setVista} />
         </>
     );
 }

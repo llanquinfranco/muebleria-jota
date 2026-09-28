@@ -74,10 +74,12 @@ ul {
     list-style: none;
 }
 
-a {
+a, button {
+    font-family: var(--font-body);
     text-decoration: none;
     color: inherit;
     transition: color 0.3s ease;
+    cursor: pointer;
 }
 
 /* ==========================================================================

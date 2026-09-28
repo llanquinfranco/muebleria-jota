@@ -45,7 +45,7 @@ function ProductList() {
     }
 
     return (
-        <main>
+        <section>
             <h2>Nuestro Catalogo</h2>
             
             <input 
@@ -65,7 +65,7 @@ function ProductList() {
                     <h3>No se encontraron muebles que coincidan con la búsqueda</h3>
                 )}
             </div>
-        </main>
+        </section>
     );
 }
 
