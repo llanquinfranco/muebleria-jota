@@ -565,7 +565,7 @@ footer {
 /* --- Inicio (index.html) --- */
 
 #hero-banner {
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 85%), url("../assets/img/hero-muebleria.jpg");
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 85%), url("/img/hero-muebleria.jpg") !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -573,7 +573,7 @@ footer {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    min-height: calc(100dvh - var(--alto-header));
+    min-height: 90dvh;
 }
 
 .hero-contenido {

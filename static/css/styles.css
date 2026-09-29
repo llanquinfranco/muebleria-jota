@@ -571,7 +571,7 @@ footer {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    min-height: calc(100dvh - var(--alto-header));
+    min-height: 100dvh;
 }
 
 .hero-contenido {
