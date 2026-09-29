@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
-
+import ProductDetail from "./components/ProductDetail";
+import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 
 function App() {
     const [vista, setVista] = useState("home");
     const [carrito, setCarrito] = useState([]);
     const [destacados, setDestacados] = useState([]);
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
     const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const url = "http://localhost:3000/api/productos";
@@ -30,7 +31,7 @@ function App() {
                 setCargando(false);
             })
             .catch((err) => {
-                setError(err.message);
+                console.error("Error al cargar el detalle:", err);
                 setCargando(false);
             });
     }, []);
@@ -78,12 +79,18 @@ function App() {
                                 {cargando ? (
                                     <p>Cargando destacados...</p>
                                 ) : (
-                                    destacados.map((mueble) => (
-                                        <div className="tarjeta-destacado" key={mueble.id}>
-                                            <img src={mueble.imagenURL} alt={mueble.nombre} />
-                                            <h2>{mueble.nombre}</h2>
-                                            <p>${mueble.precio.toLocaleString("es-AR")}</p>
-                                            <button className="boton-primario" onClick={() => agregarAlCarrito(mueble)}>
+                                    destacados.map((producto) => (
+                                        <div
+                                            className="tarjeta-destacado"
+                                            key={producto.id}
+                                            onClick={() => {
+                                                setProductoSeleccionado(producto.id);
+                                                setVista("detalle");
+                                            }}>
+                                            <img src={producto.imagenURL} alt={producto.nombre} />
+                                            <h2>{producto.nombre}</h2>
+                                            <p>${producto.precio.toLocaleString("es-AR")}</p>
+                                            <button className="boton-primario" onClick={() => agregarAlCarrito(producto)}>
                                                 Añadir al Carrito
                                             </button>
                                         </div>
@@ -95,6 +102,10 @@ function App() {
                 )}
 
                 {vista === "productos" && <ProductList />}
+
+                {vista === "detalle" && <ProductDetail productoId={productoSeleccionado} setVista={setVista} agregarAlCarrito={agregarAlCarrito} />}
+
+                {vista === "contacto" && <ContactForm />}
             </main>
 
             <Footer setVista={setVista} />
