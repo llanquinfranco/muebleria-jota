@@ -1,17 +1,25 @@
-
-function ProductCard({ producto, verDetalle }) {
-    
+function ProductCard({ producto, setVista, setProductoSeleccionado, agregarAlCarrito }) {
     return (
-        <div className="tarjeta-producto" onClick={() => verDetalle(producto)}>
+        <div
+            className="tarjeta-producto"
+            onClick={() => {
+                setProductoSeleccionado(producto.id);
+                setVista("detalle");
+            }}>
             <img src={producto.imagenURL} alt={producto.nombre} />
             <h2>{producto.nombre}</h2>
             <p className="producto-precio">${producto.precio.toLocaleString("es-AR")}</p>
             <p className="producto-descripcion">{producto.descripcion}</p>
-            <button className="boton-primario" onClick={(e) => e.stopPropagation()}>
+            <button
+                className="boton-primario"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    agregarAlCarrito(producto);
+                }}>
                 Añadir al carrito
             </button>
-            
-        </div>);
+        </div>
+    );
 }
 
 export default ProductCard;

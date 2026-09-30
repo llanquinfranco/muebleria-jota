@@ -37,12 +37,19 @@ function App() {
     }, []);
 
     function agregarAlCarrito(producto) {
-        setCarrito([...carrito, producto]);
+        setCarrito((prevCarrito) => {
+            const productoExistente = prevCarrito.find((item) => item.id == producto.id);
+            if (productoExistente) {
+                return prevCarrito.map((item) => (item.id == producto.id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item));
+            }
+            // Si es nuevo, lo agregamos con cantidad inicial en 1
+            return [...prevCarrito, { ...producto, cantidad: 1 }];
+        });
     }
 
     return (
         <>
-            <Navbar vista={vista} setVista={setVista} cantidad={carrito.length} />
+            <Navbar vista={vista} setVista={setVista} carrito={carrito} setCarrito={setCarrito} agregarAlCarrito={agregarAlCarrito} />
 
             <main>
                 {vista === "home" && (
@@ -90,7 +97,13 @@ function App() {
                                             <img src={producto.imagenURL} alt={producto.nombre} />
                                             <h2>{producto.nombre}</h2>
                                             <p>${producto.precio.toLocaleString("es-AR")}</p>
-                                            <button className="boton-primario" onClick={() => agregarAlCarrito(producto)}>
+                                            <button
+                                                className="boton-primario"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    agregarAlCarrito(producto);
+                                                }}>
                                                 Añadir al Carrito
                                             </button>
                                         </div>
@@ -101,7 +114,7 @@ function App() {
                     </>
                 )}
 
-                {vista === "productos" && <ProductList />}
+                {vista === "productos" && <ProductList setVista={setVista} setProductoSeleccionado={setProductoSeleccionado} agregarAlCarrito={agregarAlCarrito} />}
 
                 {vista === "detalle" && <ProductDetail productoId={productoSeleccionado} setVista={setVista} agregarAlCarrito={agregarAlCarrito} />}
 

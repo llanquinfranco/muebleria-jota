@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 
 function ProductDetail({ productoId, setVista, agregarAlCarrito }) {
     const [producto, setProducto] = useState(null);
@@ -58,10 +58,10 @@ function ProductDetail({ productoId, setVista, agregarAlCarrito }) {
                         {Object.entries(producto.detalles).map(([clave, valor]) => {
                             const claveMayuscula = clave.charAt(0).toUpperCase() + clave.slice(1);
                             return (
-                                <>
+                                <Fragment key={clave}>
                                     <dt>{claveMayuscula}</dt>
                                     <dd>{valor}</dd>
-                                </>
+                                </Fragment>
                             );
                         })}
                     </dl>

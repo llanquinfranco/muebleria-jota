@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-function ProductList() {
+function ProductList({setVista, setProductoSeleccionado, agregarAlCarrito}) {
     const [productos, setProductos] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [cargando, setCargando] = useState(true);
@@ -47,20 +47,14 @@ function ProductList() {
     return (
         <section>
             <h2>Nuestro Catalogo</h2>
-            
-            <input 
-                type="text" 
-                id="buscador" 
-                placeholder="Busque su mueble aquí" 
-                value={busqueda} 
-                onChange={(e) => setBusqueda(e.target.value)} 
-            />
-            
+
+            <input type="text" id="buscador" placeholder="Busque su mueble aquí" value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
+
             <div id="contenedor-catalogo">
                 {cargando ? (
                     <p>Cargando catálogo de muebles...</p>
                 ) : productosFiltrados.length > 0 ? (
-                    productosFiltrados.map((prod) => <ProductCard key={prod.id} producto={prod} />)
+                    productosFiltrados.map((producto) => <ProductCard key={producto.id} producto={producto} setVista={setVista} setProductoSeleccionado={setProductoSeleccionado} agregarAlCarrito={agregarAlCarrito} />)
                 ) : (
                     <h3>No se encontraron muebles que coincidan con la búsqueda</h3>
                 )}
