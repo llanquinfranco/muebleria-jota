@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 import ProductDetail from "./components/ProductDetail";
@@ -9,12 +8,13 @@ import Footer from "./components/Footer";
 function App() {
     const [vista, setVista] = useState("home");
     const [carrito, setCarrito] = useState([]);
-    const [destacados, setDestacados] = useState([]);
-    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
     const [cargando, setCargando] = useState(true);
+    const [productos, setProductos] = useState([]);
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const url = "http://localhost:3000/api/productos";
+        const url = "/api/productos";
         fetch(url)
             .then((res) => {
                 if (!res.ok) {
@@ -23,18 +23,21 @@ function App() {
                 return res.json();
             })
             .then((data) => {
-                const productosDestacados = data
-                    .filter((mueble) => mueble.destacado)
-                    .sort(() => Math.random() - 0.5)
-                    .slice(0, 4);
-                setDestacados(productosDestacados);
+                setProductos(data);
                 setCargando(false);
             })
             .catch((err) => {
                 console.error("Error al cargar el detalle:", err);
+                setError(err.message);
                 setCargando(false);
             });
     }, []);
+
+    const destacados = productos
+        .filter((mueble) => mueble.destacado)
+        .slice(0, 4);
+        
+    const cantidad = carrito.reduce((suma, item) => suma + item.cantidad, 0);
 
     function agregarAlCarrito(producto) {
         setCarrito((prevCarrito) => {
@@ -49,7 +52,7 @@ function App() {
 
     return (
         <>
-            <Navbar vista={vista} setVista={setVista} carrito={carrito} setCarrito={setCarrito} agregarAlCarrito={agregarAlCarrito} />
+            <Navbar vista={vista} setVista={setVista} carrito={carrito} setCarrito={setCarrito} cantidad={cantidad} />
 
             <main>
                 {vista === "home" && (
@@ -85,6 +88,8 @@ function App() {
                             <div id="contenedor-destacados">
                                 {cargando ? (
                                     <p>Cargando destacados...</p>
+                                ) : error ? (
+                                    <p>Error: {error}</p>
                                 ) : (
                                     destacados.map((producto) => (
                                         <div
@@ -114,9 +119,9 @@ function App() {
                     </>
                 )}
 
-                {vista === "productos" && <ProductList setVista={setVista} setProductoSeleccionado={setProductoSeleccionado} agregarAlCarrito={agregarAlCarrito} />}
+                {vista === "productos" && <ProductList setVista={setVista} productos={productos} setProductoSeleccionado={setProductoSeleccionado} agregarAlCarrito={agregarAlCarrito} />}
 
-                {vista === "detalle" && <ProductDetail productoId={productoSeleccionado} setVista={setVista} agregarAlCarrito={agregarAlCarrito} />}
+                {vista === "detalle" && <ProductDetail setVista={setVista} productoId={productoSeleccionado}  agregarAlCarrito={agregarAlCarrito} />}
 
                 {vista === "contacto" && <ContactForm />}
             </main>

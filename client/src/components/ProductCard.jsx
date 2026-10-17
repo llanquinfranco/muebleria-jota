@@ -1,4 +1,4 @@
-function ProductCard({ producto, setVista, setProductoSeleccionado, agregarAlCarrito }) {
+function ProductCard({ setVista, producto, setProductoSeleccionado, agregarAlCarrito }) {
     return (
         <div
             className="tarjeta-producto"

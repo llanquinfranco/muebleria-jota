@@ -1,30 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "./ProductCard";
 
-function ProductList({setVista, setProductoSeleccionado, agregarAlCarrito}) {
-    const [productos, setProductos] = useState([]);
+function ProductList({ setVista, productos, setProductoSeleccionado, agregarAlCarrito }) {
     const [busqueda, setBusqueda] = useState("");
-    const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const url = "http://localhost:3000/api/productos";
-        fetch(url)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Error al conectar con el servidor");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                setProductos(data);
-                setCargando(false);
-            })
-            .catch((err) => {
-                setError(err.message);
-                setCargando(false);
-            });
-    }, []);
 
     const quitarAcentos = (str) => {
         return str
@@ -40,21 +18,15 @@ function ProductList({setVista, setProductoSeleccionado, agregarAlCarrito}) {
         return nombreMueble.startsWith(textoBuscado) || categoriaMueble.startsWith(textoBuscado);
     });
 
-    if (error) {
-        return <p style={{ color: "red" }}>Error: {error}</p>;
-    }
-
     return (
         <section>
-            <h2>Nuestro Catalogo</h2>
+            <h2 id="titulo-catalogo">Nuestro Catalogo</h2>
 
             <input type="text" id="buscador" placeholder="Busque su mueble aquí" value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
 
             <div id="contenedor-catalogo">
-                {cargando ? (
-                    <p>Cargando catálogo de muebles...</p>
-                ) : productosFiltrados.length > 0 ? (
-                    productosFiltrados.map((producto) => <ProductCard key={producto.id} producto={producto} setVista={setVista} setProductoSeleccionado={setProductoSeleccionado} agregarAlCarrito={agregarAlCarrito} />)
+                {productosFiltrados.length > 0 ? (
+                    productosFiltrados.map((producto) => <ProductCard key={producto.id} setVista={setVista} producto={producto} setProductoSeleccionado={setProductoSeleccionado} agregarAlCarrito={agregarAlCarrito} />)
                 ) : (
                     <h3>No se encontraron muebles que coincidan con la búsqueda</h3>
                 )}

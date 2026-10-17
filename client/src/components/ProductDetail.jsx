@@ -1,11 +1,11 @@
 import { useEffect, useState, Fragment } from "react";
 
-function ProductDetail({ productoId, setVista, agregarAlCarrito }) {
+function ProductDetail({ setVista, productoId, agregarAlCarrito }) {
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
-        const url = `http://localhost:3000/api/productos/${productoId}`;
+        const url = `/api/productos/${productoId}`;
         fetch(url)
             .then((res) => {
                 if (!res.ok) {

@@ -719,7 +719,12 @@ footer {
     }
 }
 
-/* --- Catalogo (productos.html) --- */
+/* --- Catalogo (ProductList.jsx) --- */
+
+#titulo-catalogo {
+    color: var(--color-primary);
+    text-align: center;
+}
 
 #buscador {
     display: block;
@@ -746,6 +751,12 @@ footer {
     gap: 40px;
     margin-bottom: 40px;
 }
+
+#contenedor-catalogo h3 {
+    text-align: center;
+}
+
+/* --- Tarjeta del Producto (ProductCard.jsx) --- */
 
 .tarjeta-producto {
     display: flex;
@@ -827,7 +838,7 @@ footer {
     }
 }
 
-/* --- Detalle del producto (producto.html) --- */
+/* --- Detalle del producto (ProductDetail.html) --- */
 
 #detalle-volver {
     max-width: 1100px;
@@ -941,7 +952,7 @@ footer {
     }
 }
 
-/* --- Contacto (contacto.html) --- */
+/* --- Contacto (ContactForm.jsx) --- */
 
 #contacto-formulario {
     display: flex;

@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
+function Navbar({ vista, setVista, carrito, setCarrito, cantidad }) {
     const [panelAbierto, setPanelAbierto] = useState(false);
+    const [menuAbierto, setMenuAbierto] = useState(false);
 
     function sumarUnidad(id) {
         setCarrito(
@@ -33,7 +34,7 @@ function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
     }
 
     const totalPrecio = carrito.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
-    const totalItems = carrito.reduce((suma, item) => suma + item.cantidad, 0);
+    
 
     return (
         <header>
@@ -50,7 +51,7 @@ function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
                 </a>
 
                 <nav>
-                    <ul id="nav-lista">
+                    <ul id="nav-lista" className={menuAbierto ? "activo" : ""}>
                         <li>
                             <a
                                 href="#"
@@ -58,6 +59,7 @@ function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setVista("home");
+                                    setMenuAbierto(false);
                                 }}>
                                 Inicio
                             </a>
@@ -69,6 +71,7 @@ function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setVista("productos");
+                                    setMenuAbierto(false);
                                 }}>
                                 Catálogo
                             </a>
@@ -80,6 +83,7 @@ function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setVista("contacto");
+                                    setMenuAbierto(false);
                                 }}>
                                 Contacto
                             </a>
@@ -89,9 +93,9 @@ function Navbar({ vista, setVista, carrito, setCarrito, agregarAlCarrito }) {
 
                 <button id="header-carrito" onClick={() => setPanelAbierto(true)}>
                     <img src="/icons/carrito.svg" alt="Ver Carrito" />
-                    <span id="contador-carrito">{totalItems}</span>
+                    <span id="contador-carrito">{cantidad}</span>
                 </button>
-                <button id="boton-menu">☰</button>
+                <button id="boton-menu" onClick={() => setMenuAbierto(!menuAbierto)}>☰</button>
             </div>
 
             <div id="overlay-carrito" className={panelAbierto ? "" : "oculto"} onClick={() => setPanelAbierto(false)}></div>

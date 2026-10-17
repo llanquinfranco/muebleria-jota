@@ -4,7 +4,7 @@ const app = express();
 const logger = require("./logger");
 const productosRoutes = require("./routes/productosRoutes");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(logger);
 app.use(cors());
