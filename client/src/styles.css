@@ -86,6 +86,14 @@ a, button {
    COMPONENTES REUTILIZABLES
    ========================================================================== */
 
+.mensaje-estado {
+    text-align: center;
+    padding: 30px 15px;
+    font-size: 1.2rem;
+    color: #000000;
+    width: 100%;
+}
+
 .boton-primario,
 .boton-secundario {
     display: inline-block;
@@ -130,6 +138,13 @@ a, button {
 .boton-secundario:hover {
     background-color: var(--color-primary);
     color: var(--color-background);
+}
+
+@media (min-width: 768px) {
+    .mensaje-estado {
+        padding: 50px 20px;
+        font-size: 1.6rem;
+    }
 }
 
 /* ==========================================================================

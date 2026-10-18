@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 function HomePage({productos, cargando, error, agregarAlCarrito}) {
     
     const navigate = useNavigate();
+    
     const destacados = productos.filter((producto) => producto.destacado).slice(0, 4);
     
     return (
@@ -22,9 +23,9 @@ function HomePage({productos, cargando, error, agregarAlCarrito}) {
                 </div>
                 <div id="contenedor-destacados">
                     {cargando ? (
-                        <p>Cargando destacados...</p>
+                        <h2 className="mensaje-estado">Cargando productos destacados...</h2>
                     ) : error ? (
-                        <p>Error: {error}</p>
+                        <h2 className="mensaje-estado">Error al cargar productos destacados:<br /> "{error}"</h2>
                     ) : (
                         destacados.map((producto) => (
                             <div

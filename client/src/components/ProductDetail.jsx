@@ -1,43 +1,14 @@
-import { useEffect, useState, Fragment } from "react";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
-function ProductDetail({ setVista, productoId, agregarAlCarrito }) {
-    const [producto, setProducto] = useState(null);
-    const [cargando, setCargando] = useState(true);
-
-    useEffect(() => {
-        const url = `/api/productos/${productoId}`;
-        fetch(url)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Error al conectar con el servidor");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                setProducto(data);
-                setCargando(false);
-            })
-            .catch((err) => {
-                console.error("Error al cargar el detalle:", err);
-                setCargando(false);
-            });
-    }, [productoId]);
+function ProductDetail({ producto, agregarAlCarrito }) {
     
-    if (cargando || !producto) {
-        return <h2 id="mensaje-carga" style={{ textAlign: "center", marginTop: "50px" }}>Cargando Detalle...</h2>;
-    }
-
     return (
         <>
             <div id="detalle-volver">
-                <a
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setVista("productos");
-                    }}>
+                <Link to={"/productos"}>
                     ← Volver al catálogo
-                </a>
+                </Link>
             </div>
             <div id="contenedor-detalle">
                 <div id="detalle-imagen">

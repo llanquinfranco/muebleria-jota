@@ -1,25 +1,31 @@
 import { useState } from "react";
 
 function ContactForm() {
-    const [formulario, setFormulario] = useState({
+    
+    const [enviado, setEnviado] = useState(false);
+    const [formData, setFormData] = useState({
         nombre: "",
         correo: "",
         mensaje: "",
     });
 
-    const [enviado, setEnviado] = useState(false);
-
-    function cambiarFormulario(e) {
-        setFormulario({
-            ...formulario,
-            [e.target.name]: e.target.value,
-        });
-    }
-
-    function enviarFormulario(e) {
-        e.preventDefault();
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        console.log("Datos a enviar:", formData);
+        /* Aca va despues el POST cuando conecte con Mongoose */
+        
         setEnviado(true);
-        setFormulario({
+        
+        setFormData({
             nombre: "",
             correo: "",
             mensaje: "",
@@ -28,22 +34,23 @@ function ContactForm() {
         setTimeout(() => {
             setEnviado(false);
         }, 2500);
-    }
+        
+    };
 
     return (
         <section id="contacto-formulario">
             <h2>Centro de ayuda y contacto</h2>
             <p>Completá los datos y te responderemos a la brevedad</p>
 
-            <form id="form-contacto" onSubmit={enviarFormulario}>
+            <form id="form-contacto" onSubmit={handleSubmit}>
                 <label htmlFor="nombre">Nombre y Apellido</label>
-                <input type="text" id="nombre" name="nombre" minLength="8" required value={formulario.nombre} onChange={cambiarFormulario} />
+                <input type="text" id="nombre" name="nombre" minLength="8" required value={formData.nombre} onChange={handleChange} />
 
                 <label htmlFor="correo">Correo Electrónico</label>
-                <input type="email" id="correo" name="correo" required value={formulario.correo} onChange={cambiarFormulario} />
+                <input type="email" id="correo" name="correo" required value={formData.correo} onChange={handleChange} />
 
                 <label htmlFor="mensaje">Tu Consulta / Feedback</label>
-                <textarea name="mensaje" id="" rows="5" minLength="15" required value={formulario.mensaje} onChange={cambiarFormulario}></textarea>
+                <textarea name="mensaje" id="" rows="5" minLength="15" required value={formData.mensaje} onChange={handleChange}></textarea>
 
                 <button type="submit" className="boton-primario">
                     Enviar Mensaje

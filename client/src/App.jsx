@@ -26,18 +26,16 @@ function App() {
             })
             .then((data) => {
                 setProductos(data);
-                setCargando(false);
+                setError(null);
             })
             .catch((err) => {
                 console.error("Error al cargar el detalle:", err);
                 setError(err.message);
+            })
+            .finally(() => {
                 setCargando(false);
             });
     }, []);
-
-    
-
-    
 
     function agregarAlCarrito(producto) {
         setCarrito((prevCarrito) => {
