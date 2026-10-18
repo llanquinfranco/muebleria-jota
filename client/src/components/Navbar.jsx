@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-function Navbar({ vista, setVista, carrito, setCarrito, cantidad }) {
+function Navbar({carrito, setCarrito}) {
     const [panelAbierto, setPanelAbierto] = useState(false);
     const [menuAbierto, setMenuAbierto] = useState(false);
+    
+    const location = useLocation();
 
     function sumarUnidad(id) {
         setCarrito(
@@ -33,60 +36,33 @@ function Navbar({ vista, setVista, carrito, setCarrito, cantidad }) {
         setCarrito([]);
     }
 
+    const cantidad = carrito.reduce((suma, item) => suma + item.cantidad, 0);
     const totalPrecio = carrito.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
-    
 
     return (
         <header>
             <div id="contenedor-header">
-                <a
-                    href="#"
-                    id="header-logo"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setVista("home");
-                    }}>
+                <Link to={"/"} id="header-logo" onClick={() => setMenuAbierto(false)}>
                     <img src="/icons/logo.svg" alt="" />
                     Hermanos Jota
-                </a>
+                </Link>
 
                 <nav>
                     <ul id="nav-lista" className={menuAbierto ? "activo" : ""}>
                         <li>
-                            <a
-                                href="#"
-                                className={vista === "home" ? "active" : ""}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setVista("home");
-                                    setMenuAbierto(false);
-                                }}>
+                            <Link to={"/"} className={location.pathname === "/" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
                                 Inicio
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
-                                className={vista === "productos" ? "active" : ""}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setVista("productos");
-                                    setMenuAbierto(false);
-                                }}>
+                            <Link to={"/productos"} className={location.pathname === "/productos" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
                                 Catálogo
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                href="#"
-                                className={vista === "contacto" ? "active" : ""}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setVista("contacto");
-                                    setMenuAbierto(false);
-                                }}>
+                            <Link to={"/contacto"} className={location.pathname === "/contacto" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
                                 Contacto
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </nav>
@@ -95,7 +71,9 @@ function Navbar({ vista, setVista, carrito, setCarrito, cantidad }) {
                     <img src="/icons/carrito.svg" alt="Ver Carrito" />
                     <span id="contador-carrito">{cantidad}</span>
                 </button>
-                <button id="boton-menu" onClick={() => setMenuAbierto(!menuAbierto)}>☰</button>
+                <button id="boton-menu" onClick={() => setMenuAbierto(!menuAbierto)}>
+                    ☰
+                </button>
             </div>
 
             <div id="overlay-carrito" className={panelAbierto ? "" : "oculto"} onClick={() => setPanelAbierto(false)}></div>
