@@ -64,6 +64,11 @@ function Navbar({carrito, setCarrito}) {
                                 Contacto
                             </Link>
                         </li>
+                        <li>
+                            <Link to={"/admin/crear-producto"} className={location.pathname === "/admin/crear-producto" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
+                                Crear Producto
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
 

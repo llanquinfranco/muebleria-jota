@@ -12,7 +12,7 @@ function ProductDetail({ producto, agregarAlCarrito }) {
             </div>
             <div id="contenedor-detalle">
                 <div id="detalle-imagen">
-                    <img src={producto.imagenURL} alt={producto.nombre} />
+                    <img src={producto.imagenUrl} alt={producto.nombre} />
                 </div>
                 <div id="detalle-info">
                     <p>{producto.categoria}</p>
@@ -26,7 +26,7 @@ function ProductDetail({ producto, agregarAlCarrito }) {
                     <p className="descripcion">{producto.descripcion}</p>
                     <dl id="detalle-especificaciones">
                         <h3>DETALLES DE FABRICACIÓN</h3>
-                        {Object.entries(producto.detalles).map(([clave, valor]) => {
+                        {Object.entries(producto.detalles || {}).map(([clave, valor]) => {
                             const claveMayuscula = clave.charAt(0).toUpperCase() + clave.slice(1);
                             return (
                                 <Fragment key={clave}>
