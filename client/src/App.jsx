@@ -8,6 +8,8 @@ import ContactPage from "./pages/ContactPage";
 import CreateProductPage from "./pages/CreateProductPage";
 import Footer from "./components/Footer";
 
+const API_URL = import.meta.env.VITE_API_URL || "";
+
 function App() {
     
     const [carrito, setCarrito] = useState([]);
@@ -16,7 +18,7 @@ function App() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const url = "/api/productos";
+        const url = `${API_URL}/api/productos`;
         fetch(url)
             .then((res) => {
                 if (!res.ok) {

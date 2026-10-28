@@ -9,7 +9,7 @@ function ProductList({ productos, agregarAlCarrito }) {
     return (
         <div id="contenedor-catalogo">
             {productos.map((producto) => (
-                <ProductCard key={producto.id} producto={producto} agregarAlCarrito={agregarAlCarrito} />
+                <ProductCard key={producto._id} producto={producto} agregarAlCarrito={agregarAlCarrito} />
             ))}
         </div>
     );

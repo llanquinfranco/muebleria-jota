@@ -30,8 +30,8 @@ function HomePage({productos, cargando, error, agregarAlCarrito}) {
                         destacados.map((producto) => (
                             <div
                                 className="tarjeta-destacado"
-                                key={producto.id}
-                                onClick={() => navigate(`/productos/${producto.id}`)}>
+                                key={producto._id}
+                                onClick={() => navigate(`/productos/${producto._id}`)}>
                                 <img src={producto.imagenURL} alt={producto.nombre} />
                                 <h2>{producto.nombre}</h2>
                                 <p>${producto.precio.toLocaleString("es-AR")}</p>

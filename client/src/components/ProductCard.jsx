@@ -4,7 +4,7 @@ function ProductCard({ producto, agregarAlCarrito }) {
     const navigate = useNavigate();
 
     return (
-        <div className="tarjeta-producto" onClick={() => navigate(`/productos/${producto.id}`)}>
+        <div className="tarjeta-producto" onClick={() => navigate(`/productos/${producto._id}`)}>
             <img src={producto.imagenURL} alt={producto.nombre} />
             <h2>{producto.nombre}</h2>
             <p className="producto-precio">${producto.precio.toLocaleString("es-AR")}</p>

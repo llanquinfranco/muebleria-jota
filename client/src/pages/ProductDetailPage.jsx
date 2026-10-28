@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductDetail from "../components/ProductDetail";
 
+const API_URL = import.meta.env.VITE_API_URL || "";
+
 function ProductDetailPage( {agregarAlCarrito} ) {
     
     const { id } = useParams();
-    
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const url = `/api/productos/${id}`;
+        const url = `${API_URL}/api/productos/${id}`;
         fetch(url)
             .then((res) => {
                 if (!res.ok) {
