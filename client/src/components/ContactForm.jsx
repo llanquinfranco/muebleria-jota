@@ -33,16 +33,13 @@ function ContactForm() {
 
         setTimeout(() => {
             setEnviado(false);
-        }, 2500);
+        }, 3000);
         
     };
 
     return (
-        <section id="contacto-formulario">
-            <h2>Centro de ayuda y contacto</h2>
-            <p>Completá los datos y te responderemos a la brevedad</p>
-
-            <form id="form-contacto" onSubmit={handleSubmit}>
+        <>
+            <form className="formulario-base" onSubmit={handleSubmit}>
                 <label htmlFor="nombre">Nombre y Apellido</label>
                 <input type="text" id="nombre" name="nombre" minLength="8" required value={formData.nombre} onChange={handleChange} />
 
@@ -56,10 +53,10 @@ function ContactForm() {
                     Enviar Mensaje
                 </button>
             </form>
-            <h3 id="mensaje-exito" style={{display: enviado ? "block" : "none"}}>
+            <h3 id="mensaje-estado" style={{display: enviado ? "block" : "none"}}>
                 ¡Tu consulta fue enviada correctamente y ya la recibimos!
             </h3>
-        </section>
+        </>
     );
 }
 
