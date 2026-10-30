@@ -6,6 +6,7 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ContactPage from "./pages/ContactPage";
 import CreateProductPage from "./pages/CreateProductPage";
+import EditProductPage from "./pages/EditProductPage";
 import Footer from "./components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
@@ -66,6 +67,8 @@ function App() {
                     <Route path="/contacto" element={<ContactPage />} />
                     
                     <Route path="/admin/crear-producto" element={<CreateProductPage />} />
+                    
+                    <Route path="/admin/editar-producto/:id" element={<EditProductPage />} />
                     
                 </Routes>
             </main>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ProductDetail from "../components/ProductDetail";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL || "";
 function ProductDetailPage( {agregarAlCarrito} ) {
     
     const { id } = useParams();
+    const navigate = useNavigate();
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
@@ -33,6 +34,22 @@ function ProductDetailPage( {agregarAlCarrito} ) {
             });
     }, [id]);
     
+    
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/productos/${id}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                throw new Error("No se pudo eliminar el producto");
+            }
+            navigate("/productos");
+        } catch (err) {
+            console.error("Error al eliminar:", err);
+            alert(err.message);
+        }
+    };
+    
     if (cargando) {
         return <h2 className="mensaje-estado">Cargando detalle del producto...</h2>;
     }
@@ -44,7 +61,7 @@ function ProductDetailPage( {agregarAlCarrito} ) {
     
     return(
         <>
-            <ProductDetail producto={producto} agregarAlCarrito={agregarAlCarrito}/>
+            <ProductDetail producto={producto} agregarAlCarrito={agregarAlCarrito} handleDelete={handleDelete} />
         </>
     );
 }

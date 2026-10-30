@@ -1,15 +1,37 @@
-import { Fragment } from "react";
+import { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 
-function ProductDetail({ producto, agregarAlCarrito }) {
-    
+function ProductDetail({ producto, agregarAlCarrito, handleDelete }) {
+    const [confirmando, setConfirmando] = useState(false);
+
     return (
         <>
-            <div id="detalle-volver">
-                <Link to={"/productos"}>
-                    ← Volver al catálogo
-                </Link>
+            <div id="cabecera-detalle">
+                <Link to={"/productos"}>← Volver al catálogo</Link>
+                <div className="controles-admin">
+                    {confirmando ? (
+                        <div className="alerta-eliminar">
+                            <span className="texto-alerta">¿Eliminar definitivamente?</span>
+                            <button className="boton-secundario" onClick={handleDelete}>
+                                Si
+                            </button>
+                            <button className="boton-secundario" onClick={() => setConfirmando(false)}>
+                                No
+                            </button>
+                        </div>
+                    ) : (
+                        <>
+                            <Link to={`/admin/editar-producto/${producto._id}`} className="boton-secundario">
+                                Editar Producto
+                            </Link>
+                            <button className="boton-secundario" onClick={() => setConfirmando(true)}>
+                                Eliminar Producto
+                            </button>
+                        </>
+                    )}
+                </div>
             </div>
+
             <div id="contenedor-detalle">
                 <div id="detalle-imagen">
                     <img src={producto.imagenUrl} alt={producto.nombre} />
