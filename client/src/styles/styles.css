@@ -97,31 +97,33 @@ a, button {
 .formulario-base {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 90%;
+    align-items: stretch;
+    width: 100%;
     background-color: white;
     border-radius: 20px;
-    gap: 5px;
-    padding: 15px 5px;
+    gap: 0;
+    padding: 20px 30px 30px 30px;
     margin-top: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
 }
 
 .formulario-base label {
-    font-weight: bold;
+    margin-left: 0;
     color: var(--color-primary);
-    align-self: flex-start;
-    margin-left: 5%;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 8px;
+    margin-top: 0px;
 }
 
 .formulario-base input,
 .formulario-base textarea {
-    width: 90%;
+    width: 100%;
     padding: 12px 15px;
     border: 2px solid var(--color-primary);
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     font-family: var(--font-body);
     font-size: 1rem;
     box-sizing: border-box;
@@ -194,9 +196,6 @@ button.boton-secundario:hover {
         font-size: 1.6rem;
     }
     
-    .formulario-base {
-        width: 100%;
-    }
 }
 
 /* ==========================================================================
@@ -1057,16 +1056,49 @@ footer {
     text-align: center;
 }
 
-/* --- Alta de Producto (CreateProductPage.jsx) --- */
+/* --- Alta de Producto y Edicion de Producto (CreateProductPage.jsx/EditProductPage) --- */
 
-#contenedor-crear-producto {
+#contenedor-crear-producto, #contenedor-editar-producto {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 500px;
+    max-width: 600px;
     margin: 20px auto 40px auto;
     text-align: center;
 }
 
+.fieldset-detalles {
+    border: 1px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    background-color: var(--color-header);
+}
 
+.fieldset-detalles legend {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0 10px;
+}
+
+.fila-detalle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.fila-detalle input {
+    margin-bottom: 0;
+}
+
+.input-clave {
+    flex: 1;
+}
+
+.input-valor {
+    flex: 2;
+}
 

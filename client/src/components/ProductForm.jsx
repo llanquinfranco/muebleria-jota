@@ -149,20 +149,22 @@ function ProductForm() {
                 <input type="text" name="imagenUrl" value={formData.imagenUrl} onChange={handleChange} />
                 
                 <label>Descripción</label>
-                <textarea name="descripcion" rows="3" value={formData.descripcion} onChange={handleChange}></textarea>
+                <textarea name="descripcion" rows="4" value={formData.descripcion} onChange={handleChange}></textarea>
 
-                <fieldset>
+                <fieldset className="fieldset-detalles">
                     <legend>Especificaciones (Tus 5 campos. Dejá vacío el que no uses)</legend>
                     {formData.detalles.map((detalle, index) => (
-                        <div key={index}>
+                        <div key={index} className="fila-detalle">
                             <input 
                                 type="text" 
-                                placeholder="Clave (Ej: Material principal)" 
+                                className="input-clave" 
+                                placeholder="Clave (Ej: Material)" 
                                 value={detalle.clave} 
                                 onChange={(e) => handleDetalleChange(index, "clave", e.target.value)} 
                             />
                             <input 
                                 type="text" 
+                                className="input-valor" 
                                 placeholder="Valor (Ej: Nogal Macizo)" 
                                 value={detalle.valor} 
                                 onChange={(e) => handleDetalleChange(index, "valor", e.target.value)} 
