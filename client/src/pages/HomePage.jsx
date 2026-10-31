@@ -1,51 +1,38 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
 
-function HomePage({productos, cargando, error, agregarAlCarrito}) {
-    
-    const navigate = useNavigate();
+function HomePage({ productos, cargando, error, agregarAlCarrito }) {
     
     const destacados = productos.filter((producto) => producto.destacado).slice(0, 4);
-    
+
     return (
         <>
             <section id="hero-banner">
                 <div className="hero-contenido">
                     <h1>Muebles que alimentan el alma</h1>
                     <p>Existimos en la intersección entre herencia e innovación. La calidez del optimismo de los años 60 se encuentra con la conciencia de la sustentabilidad del 2026.</p>
-                    <Link to={"/productos"} className="boton-primario">Explorar Catalogo</Link>
-                    
+                    <Link to={"/productos"} className="boton-primario">
+                        Explorar Catalogo
+                    </Link>
                 </div>
             </section>
             <section id="productos-destacados">
                 <div id="cabecera-destacados">
                     <h2>Productos Destacados</h2>
-                    <Link to={"/productos"} className="boton-secundario">Ver Todo</Link>
+                    <Link to={"/productos"} className="boton-secundario">
+                        Ver Todo
+                    </Link>
                 </div>
                 <div id="contenedor-destacados">
                     {cargando ? (
                         <h2 className="mensaje-estado">Cargando productos destacados...</h2>
                     ) : error ? (
-                        <h2 className="mensaje-estado">Error al cargar productos destacados:<br /> "{error}"</h2>
+                        <h2 className="mensaje-estado">
+                            Error al cargar productos destacados:
+                            <br /> "{error}"
+                        </h2>
                     ) : (
-                        destacados.map((producto) => (
-                            <div
-                                className="tarjeta-destacado"
-                                key={producto._id}
-                                onClick={() => navigate(`/productos/${producto._id}`)}>
-                                <img src={producto.imagenURL} alt={producto.nombre} />
-                                <h2>{producto.nombre}</h2>
-                                <p>${producto.precio.toLocaleString("es-AR")}</p>
-                                <button
-                                    className="boton-primario"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        agregarAlCarrito(producto);
-                                    }}>
-                                    Añadir al Carrito
-                                </button>
-                            </div>
-                        ))
+                        destacados.map((producto) => <ProductCard key={producto._id} producto={producto} agregarAlCarrito={agregarAlCarrito} esDestacado={true} />)
                     )}
                 </div>
             </section>

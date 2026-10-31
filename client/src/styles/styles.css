@@ -692,57 +692,9 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 20px;
-}
-
-.tarjeta-destacado {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 400px;
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    text-align: left;
-}
-
-.tarjeta-destacado:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(160, 82, 45, 0.15);
-}
-
-.tarjeta-destacado img {
-    width: 100%;
-    height: 220px;
-    object-fit: contain;
-    background-color: var(--color-img-background);
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
-
-.tarjeta-destacado h2 {
-    font-size: 1.3rem;
-    margin: 0 20px 10px 20px;
-}
-
-.tarjeta-destacado p {
-    color: var(--color-primary);
-    font-size: 1.1rem;
-    font-weight: bold;
-    line-height: 1.5;
-    margin: auto 20px 15px 20px;
-}
-
-.tarjeta-destacado .boton-primario {
-    align-self: center;
-    margin-bottom: 20px;
-    margin-top: 0;
+    width: 90%;
 }
 
 @media (min-width: 768px) {
@@ -774,15 +726,10 @@ footer {
     #contenedor-destacados {
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
     }
 
-    .tarjeta-destacado {
-        width: 20%;
-    }
-
-    .tarjeta-destacado h2 {
-        font-size: 1.2rem;
-    }
 }
 
 /* --- Catalogo (ProductList.jsx) --- */
@@ -901,6 +848,11 @@ footer {
     .tarjeta-producto {
         width: 25%;
         overflow: hidden;
+    }
+    
+    #contenedor-destacados .tarjeta-producto {
+        width: calc(25% - 20px);
+        flex: 0 0 calc(25% - 20px);
     }
 }
 

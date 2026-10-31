@@ -8,6 +8,7 @@ import ContactPage from "./pages/ContactPage";
 import CreateProductPage from "./pages/CreateProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
@@ -53,6 +54,8 @@ function App() {
 
     return (
         <>
+            <ScrollToTop/>
+        
             <Navbar carrito={carrito} setCarrito={setCarrito}/>
 
             <main>
