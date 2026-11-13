@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-function ProductList({ productos, agregarAlCarrito }) {
+function ProductList({ productos }) {
     
     if (productos.length === 0) {
         return <h2 className="mensaje-estado">No se encontraron muebles que coincidan con la búsqueda</h2>;
@@ -9,7 +9,7 @@ function ProductList({ productos, agregarAlCarrito }) {
     return (
         <div id="contenedor-catalogo">
             {productos.map((producto) => (
-                <ProductCard key={producto._id} producto={producto} agregarAlCarrito={agregarAlCarrito} />
+                <ProductCard key={producto._id} producto={producto} />
             ))}
         </div>
     );

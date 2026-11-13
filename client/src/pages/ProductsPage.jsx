@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductList from "../components/ProductList";
 
-function ProductsPage({ productos, cargando, error, agregarAlCarrito }) {
+function ProductsPage({ productos, cargando, error }) {
     
     const [busqueda, setBusqueda] = useState("");
 
@@ -35,7 +35,7 @@ function ProductsPage({ productos, cargando, error, agregarAlCarrito }) {
 
             <input type="text" id="buscador" placeholder="Busque su mueble aquí" value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
 
-            <ProductList productos={productosFiltrados} agregarAlCarrito={agregarAlCarrito} />
+            <ProductList productos={productosFiltrados} />
         </section>
     );
 }

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
-function HomePage({ productos, cargando, error, agregarAlCarrito }) {
+function HomePage({ productos, cargando, error }) {
     
     const destacados = productos.filter((producto) => producto.destacado).slice(0, 4);
 
@@ -32,7 +32,7 @@ function HomePage({ productos, cargando, error, agregarAlCarrito }) {
                             <br /> "{error}"
                         </h2>
                     ) : (
-                        destacados.map((producto) => <ProductCard key={producto._id} producto={producto} agregarAlCarrito={agregarAlCarrito} esDestacado={true} />)
+                        destacados.map((producto) => <ProductCard key={producto._id} producto={producto} esDestacado={true} />)
                     )}
                 </div>
             </section>

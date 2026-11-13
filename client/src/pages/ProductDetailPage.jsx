@@ -4,13 +4,14 @@ import ProductDetail from "../components/ProductDetail";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
-function ProductDetailPage( {agregarAlCarrito} ) {
+function ProductDetailPage() {
     
     const { id } = useParams();
     const navigate = useNavigate();
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         const url = `${API_URL}/api/productos/${id}`;
@@ -61,7 +62,7 @@ function ProductDetailPage( {agregarAlCarrito} ) {
     
     return(
         <>
-            <ProductDetail producto={producto} agregarAlCarrito={agregarAlCarrito} handleDelete={handleDelete} />
+            <ProductDetail producto={producto} handleDelete={handleDelete} />
         </>
     );
 }

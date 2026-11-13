@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
-function ProductCard({ producto, agregarAlCarrito, esDestacado = false }) {
+function ProductCard({ producto, esDestacado = false }) {
     const navigate = useNavigate();
+    const { addItemToCart } = useContext(CartContext);
 
     return (
         <div className="tarjeta-producto" onClick={() => navigate(`/productos/${producto._id}`)}>
@@ -16,7 +19,7 @@ function ProductCard({ producto, agregarAlCarrito, esDestacado = false }) {
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    agregarAlCarrito(producto);
+                    addItemToCart(producto);
                 }}>
                 Añadir al carrito
             </button>

@@ -1,9 +1,12 @@
-import { useState, Fragment } from "react";
+import { useState, useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
+import CartContext from "../context/CartContext";
 
-function ProductDetail({ producto, agregarAlCarrito, handleDelete }) {
+function ProductDetail({ producto, handleDelete }) {
     const [confirmando, setConfirmando] = useState(false);
 
+    const { agregarAlCarrito } = useContext(CartContext);
+    
     return (
         <>
             <div id="cabecera-detalle">
