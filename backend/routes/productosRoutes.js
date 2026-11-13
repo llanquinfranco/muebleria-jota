@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const Product = require("../models/Product");
 
-// const productos = require("../data/productos");
-
 // GET /api/productos - Listar todos los productos
 router.get("/", async (req, res, next) => {
     try {
