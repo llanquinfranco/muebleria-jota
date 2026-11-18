@@ -16,4 +16,12 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-module.exports = verifyToken;
+const onlyAdmin = (req, res, next) => {
+    if (req.usuario?.rol !== "admin") {
+        return res.status(403).json({ error: "Acceso denegado" });
+    }
+
+    return next();
+};
+
+module.exports = {verifyToken, onlyAdmin};

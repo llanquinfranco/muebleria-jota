@@ -8,6 +8,7 @@ const connectDB = require("./config/db");
 const logger = require("./middlewares/logger");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
 const productosRoutes = require("./routes/productosRoutes");
+const usuariosRoutes = require("./routes/usuariosRoutes");
 
 
 const app = express();
@@ -42,6 +43,7 @@ app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 // Rutas de la API
 app.use("/api/productos", productosRoutes);
+app.use("/api/usuarios", usuariosRoutes);
 
 app.get("/", (req, res) => {
     res.json({

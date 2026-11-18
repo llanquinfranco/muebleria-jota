@@ -12,12 +12,18 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, "El email es obligatorio"],
             unique: true,
+            lowercase: true,
             trim: true,
         },
         password: {
             type: String,
             required: [true, "La contraseña es obligatoria"],
             trim: true,
+        },
+        rol: {
+            type: String,
+            enum: ["cliente", "admin"],
+            default: "cliente",
         },
     },
     {
