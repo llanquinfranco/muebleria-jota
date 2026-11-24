@@ -1,4 +1,6 @@
-function Footer({setVista}) {
+import { Link } from "react-router-dom";
+
+function Footer() {
     return (
         <footer>
             <div id="contenedor-footer">
@@ -43,13 +45,13 @@ function Footer({setVista}) {
                     <h3>Navegación</h3>
                     <ul>
                         <li>
-                            <a onClick={(e) => { e.preventDefault(); setVista('home'); }}>Inicio</a>
+                            <Link to="/">Inicio</Link>
                         </li>
                         <li>
-                            <a onClick={(e) => { e.preventDefault(); setVista('productos'); }}>Catálogo de productos</a>
+                            <Link to="/productos">Catálogo de productos</Link>
                         </li>
                         <li>
-                            <a onClick={(e) => { e.preventDefault(); setVista('contacto'); }}>Contacto</a>
+                            <Link to="/contacto">Contacto</Link>
                         </li>
                     </ul>
                 </div>

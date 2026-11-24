@@ -6,10 +6,12 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ContactPage from "./pages/ContactPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import CreateProductPage from "./pages/CreateProductPage";
 import EditProductPage from "./pages/EditProductPage";
-import ProfilePage from './pages/ProfilePage';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProfilePage from "./pages/ProfilePage";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -59,6 +61,10 @@ function App() {
 
                     <Route path="/contacto" element={<ContactPage />} />
 
+                    <Route path="/login" element={<LoginPage />} />
+
+                    <Route path="/registro" element={<RegisterPage />} />
+
                     <Route
                         path="/profile"
                         element={
@@ -67,12 +73,24 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    
-                    
-                    /* AdminRoute en lugar de ProtectedRoute ¿? */
-                    <Route path="/admin/crear-producto" element={<CreateProductPage />} />
 
-                    <Route path="/admin/editar-producto/:id" element={<EditProductPage />} />
+                    <Route
+                        path="/admin/crear-producto"
+                        element={
+                            <ProtectedRoute soloAdmin>
+                                <CreateProductPage key="crear" />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
+                        path="/admin/editar-producto/:id"
+                        element={
+                            <ProtectedRoute soloAdmin>
+                                <EditProductPage />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Routes>
             </main>
 

@@ -17,10 +17,9 @@ const verifyToken = (req, res, next) => {
 };
 
 const onlyAdmin = (req, res, next) => {
-    if (req.usuario?.rol !== "admin") {
+    if (req.user?.rol !== "admin") {
         return res.status(403).json({ error: "Acceso denegado" });
     }
-
     return next();
 };
 

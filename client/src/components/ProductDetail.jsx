@@ -1,38 +1,43 @@
 import { useState, useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
-import CartContext from "../context/CartContext";
+import { CartContext } from "../contexts/CartContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 function ProductDetail({ producto, handleDelete }) {
     const [confirmando, setConfirmando] = useState(false);
 
     const { agregarAlCarrito } = useContext(CartContext);
-    
+    const { currentUser } = useContext(AuthContext);
+    const esAdmin = currentUser?.rol === "admin";
+
     return (
         <>
             <div id="cabecera-detalle">
                 <Link to={"/productos"}>← Volver al catálogo</Link>
-                <div className="controles-admin">
-                    {confirmando ? (
-                        <div className="alerta-eliminar">
-                            <span className="texto-alerta">¿Eliminar definitivamente?</span>
-                            <button className="boton-secundario" onClick={handleDelete}>
-                                Si
-                            </button>
-                            <button className="boton-secundario" onClick={() => setConfirmando(false)}>
-                                No
-                            </button>
-                        </div>
-                    ) : (
-                        <>
-                            <Link to={`/admin/editar-producto/${producto._id}`} className="boton-secundario">
-                                Editar Producto
-                            </Link>
-                            <button className="boton-secundario" onClick={() => setConfirmando(true)}>
-                                Eliminar Producto
-                            </button>
-                        </>
-                    )}
-                </div>
+                {esAdmin && (
+                    <div className="controles-admin">
+                        {confirmando ? (
+                            <div className="alerta-eliminar">
+                                <span className="texto-alerta">¿Eliminar definitivamente?</span>
+                                <button className="boton-secundario" onClick={handleDelete}>
+                                    Si
+                                </button>
+                                <button className="boton-secundario" onClick={() => setConfirmando(false)}>
+                                    No
+                                </button>
+                            </div>
+                        ) : (
+                            <>
+                                <Link to={`/admin/editar-producto/${producto._id}`} className="boton-secundario">
+                                    Editar Producto
+                                </Link>
+                                <button className="boton-secundario" onClick={() => setConfirmando(true)}>
+                                    Eliminar Producto
+                                </button>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div id="contenedor-detalle">

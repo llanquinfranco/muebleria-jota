@@ -4,7 +4,7 @@ import { CartContext } from '../context/CartContext';
 
 function ProductCard({ producto, esDestacado = false }) {
     const navigate = useNavigate();
-    const { addItemToCart } = useContext(CartContext);
+    const { agregarAlCarrito } = useContext(CartContext);
 
     return (
         <div className="tarjeta-producto" onClick={() => navigate(`/productos/${producto._id}`)}>
@@ -19,7 +19,7 @@ function ProductCard({ producto, esDestacado = false }) {
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    addItemToCart(producto);
+                    agregarAlCarrito(producto);
                 }}>
                 Añadir al carrito
             </button>

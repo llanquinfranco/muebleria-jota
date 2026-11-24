@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
+const API_URL = import.meta.env.VITE_API_URL || "";
+
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -24,9 +26,18 @@ export const AuthProvider = ({ children }) => {
         checkAuth();
     }, []);
 
-    const login = (token) => {
-        localStorage.setItem("authToken", token);
-        const decodedUser = jwtDecode(token);
+    const login = async (email, password) => {
+        const respuesta = await fetch(`${API_URL}/api/usuarios/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+        const datos = await respuesta.json();
+        if (!respuesta.ok) {
+            throw new Error(datos.message || datos.mensaje || "No se pudo iniciar sesión");
+        }
+        localStorage.setItem("authToken", datos.token);
+        const decodedUser = jwtDecode(datos.token);
         setCurrentUser(decodedUser);
     };
 

@@ -44,7 +44,7 @@ function ProductForm() {
                     nombre: data.nombre || "",
                     categoria: data.categoria || "",
                     precio: data.precio || "",
-                    imagenUrl: data.imagenUrl || data.imagen || "",      
+                    imagenUrl: data.imagenUrl || data.imagen || "",
                     descripcion: data.descripcion || "",
                     detalles: detallesCompletos,
                     stock: data.stock || "",
@@ -67,7 +67,7 @@ function ProductForm() {
             [name]: value,
         }));
     };
-    
+
     const handleDetalleChange = (index, campo, valor) => {
         const nuevosDetalles = [...formData.detalles];
         nuevosDetalles[index][campo] = valor;
@@ -78,40 +78,49 @@ function ProductForm() {
         event.preventDefault();
         setCargando(true);
         setError(null);
-        
+
         // Limpieza y camelCase de los detalles antes de enviar
         const objetoDetalles = {};
-        formData.detalles.forEach(item => {
+        formData.detalles.forEach((item) => {
             if (item.clave.trim() !== "" && item.valor.trim() !== "") {
-                const claveCamelCase = item.clave.trim().split(/\s+/).map((palabra, index) => {
-                    if (index === 0) return palabra.toLowerCase();
-                    return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
-                }).join("");
+                const claveCamelCase = item.clave
+                    .trim()
+                    .split(/\s+/)
+                    .map((palabra, index) => {
+                        if (index === 0) return palabra.toLowerCase();
+                        return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase();
+                    })
+                    .join("");
                 objetoDetalles[claveCamelCase] = item.valor;
             }
         });
-        
+
         try {
             const productoAEnviar = {
                 ...formData,
                 precio: Number(formData.precio),
                 stock: Number(formData.stock),
-                detalles: objetoDetalles
+                detalles: objetoDetalles,
             };
 
             // Definimos dinámicamente si es un POST (crear) o PUT (editar)
+            const token = localStorage.getItem("authToken");
             const url = esEdicion ? `${API_URL}/api/productos/${id}` : `${API_URL}/api/productos`;
             const method = esEdicion ? "PUT" : "POST";
-            
+
             const response = await fetch(url, {
                 method: method,
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify(productoAEnviar),
             });
 
             if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.message || "Error al crear el producto");
+                const errData = await response.json().catch(() => ({}));
+                const mensajePorDefecto = esEdicion ? "Error al actualizar el producto" : "Error al crear el producto";
+                throw new Error(errData.message || errData.error || mensajePorDefecto);
             }
 
             setEnviado(true);
@@ -125,7 +134,6 @@ function ProductForm() {
             } else {
                 setTimeout(() => navigate("/productos"), 3000);
             }
-            
         } catch (err) {
             setError(err.message);
         } finally {
@@ -141,13 +149,13 @@ function ProductForm() {
 
                 <label>Categoría</label>
                 <input type="text" name="categoria" required value={formData.categoria} onChange={handleChange} />
-                
+
                 <label>Precio ($) *</label>
                 <input type="number" name="precio" min="0" required value={formData.precio} onChange={handleChange} />
-                
+
                 <label>URL de la imagen</label>
                 <input type="text" name="imagenUrl" value={formData.imagenUrl} onChange={handleChange} />
-                
+
                 <label>Descripción</label>
                 <textarea name="descripcion" rows="4" value={formData.descripcion} onChange={handleChange}></textarea>
 
@@ -155,27 +163,15 @@ function ProductForm() {
                     <legend>Especificaciones (Tus 5 campos. Dejá vacío el que no uses)</legend>
                     {formData.detalles.map((detalle, index) => (
                         <div key={index} className="fila-detalle">
-                            <input 
-                                type="text" 
-                                className="input-clave" 
-                                placeholder="Clave (Ej: Material)" 
-                                value={detalle.clave} 
-                                onChange={(e) => handleDetalleChange(index, "clave", e.target.value)} 
-                            />
-                            <input 
-                                type="text" 
-                                className="input-valor" 
-                                placeholder="Valor (Ej: Nogal Macizo)" 
-                                value={detalle.valor} 
-                                onChange={(e) => handleDetalleChange(index, "valor", e.target.value)} 
-                            />
+                            <input type="text" className="input-clave" placeholder="Clave (Ej: Material)" value={detalle.clave} onChange={(e) => handleDetalleChange(index, "clave", e.target.value)} />
+                            <input type="text" className="input-valor" placeholder="Valor (Ej: Nogal Macizo)" value={detalle.valor} onChange={(e) => handleDetalleChange(index, "valor", e.target.value)} />
                         </div>
                     ))}
                 </fieldset>
 
                 <label>Stock disponible</label>
                 <input type="number" name="stock" min="0" value={formData.stock} onChange={handleChange} />
-                
+
                 <button type="submit" className="boton-primario" disabled={cargando}>
                     {cargando ? "Guardando..." : esEdicion ? "Guardar Cambios" : "Crear Producto"}
                 </button>

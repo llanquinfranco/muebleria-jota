@@ -1,13 +1,21 @@
 import { useState, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { CartContext } from '../context/CartContext';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { CartContext } from "../contexts/CartContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 function Navbar() {
-    
     const [menuAbierto, setMenuAbierto] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const { abrirPanel, cantidad } = useContext(CartContext);
+    const { currentUser, logout } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logout();
+        setMenuAbierto(false);
+        navigate("/");
+    };
 
     return (
         <header>
@@ -34,11 +42,41 @@ function Navbar() {
                                 Contacto
                             </Link>
                         </li>
-                        <li>
-                            <Link to={"/admin/crear-producto"} className={location.pathname === "/admin/crear-producto" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
-                                Crear Producto
-                            </Link>
-                        </li>
+                        {currentUser?.rol === "admin" && (
+                            <li>
+                                <Link to={"/admin/crear-producto"} className={location.pathname === "/admin/crear-producto" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
+                                    Crear Producto
+                                </Link>
+                            </li>
+                        )}
+
+                        {currentUser ? (
+                            <>
+                                <li>
+                                    <Link to={"/profile"} className={location.pathname === "/profile" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
+                                        Hola, {currentUser.username}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <button type="button" className="boton-secundario" onClick={handleLogout}>
+                                        Cerrar sesión
+                                    </button>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link to={"/login"} className={location.pathname === "/login" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
+                                        Ingresar
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/registro"} className={location.pathname === "/registro" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
+                                        Registrarse
+                                    </Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </nav>
 
@@ -50,7 +88,6 @@ function Navbar() {
                     ☰
                 </button>
             </div>
-
         </header>
     );
 }
