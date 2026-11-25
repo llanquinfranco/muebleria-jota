@@ -273,6 +273,7 @@ header {
 #nav-lista {
     display: none;
     flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 100%;
     left: 0;
@@ -327,11 +328,12 @@ header {
     #nav-lista {
         display: flex;
         flex-direction: row;
+        align-items: center;
         position: static;
         width: auto;
         box-shadow: none;
         padding: 0;
-        gap: 50px;
+        gap: 10px;
         border: none;
     }
 
@@ -998,23 +1000,14 @@ footer {
 }
 
 /* --- Contacto (ContactPage.jsx) --- */
+/* --- Alta de Producto y Edicion de Producto (CreateProductPage.jsx/EditProductPage) --- */
+/* --- Login y Registro de Usuario (LoginPage.jsx/RegisterPage.jsx) --- */
 
-#contenedor-contacto {
+#contenedor-contacto, #contenedor-abm-producto, #contenedor-usuario {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 500px;
-    margin: 20px auto 40px auto;
-    text-align: center;
-}
-
-/* --- Alta de Producto y Edicion de Producto (CreateProductPage.jsx/EditProductPage) --- */
-
-#contenedor-crear-producto, #contenedor-editar-producto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 600px;
     margin: 20px auto 40px auto;
     text-align: center;
 }
@@ -1054,3 +1047,56 @@ footer {
     flex: 2;
 }
 
+#contenedor-usuario .boton-primario {
+    margin-bottom: 18px;
+}
+
+#contenedor-usuario .texto-alternativo-usuario {
+    margin-top: 4px;
+}
+
+#contenedor-usuario .link-usuario {
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* --- Perfil (ProfilePage.jsx) --- */
+
+#contenedor-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 30px auto 50px auto;
+    padding: 0 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#contenedor-perfil h2 {
+    margin-bottom: 18px;
+}
+
+.tarjeta-perfil {
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.tarjeta-perfil p {
+    margin: 0 0 14px 0;
+    font-size: 1rem;
+    color: black;
+}
+
+.tarjeta-perfil p:last-child {
+    margin-bottom: 0;
+}
+
+.tarjeta-perfil strong {
+    color: var(--color-primary);
+}

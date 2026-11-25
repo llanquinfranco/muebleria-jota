@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
+import { CartContext } from "../contexts/CartContext";
 
 function CartSidebar() {
     
@@ -7,12 +7,12 @@ function CartSidebar() {
     
     return (
         <>
-            <div id="overlay-carrito" className={panelAbierto ? "" : "oculto"} onClick={() => cerrarPanel}></div>
+            <div id="overlay-carrito" className={panelAbierto ? "" : "oculto"} onClick={cerrarPanel}></div>
 
             <aside id="panel-carrito" className={panelAbierto ? "" : "oculto"}>
                 <div className="panel-cabecera">
                     <h2>Mi carrito</h2>
-                    <button id="boton-cerrar-panel" onClick={() => cerrarPanel}>
+                    <button id="boton-cerrar-panel" onClick={cerrarPanel}>
                         X
                     </button>
                 </div>
@@ -21,23 +21,23 @@ function CartSidebar() {
                         <p>Tu carrito está vacío.</p>
                     ) : (
                         carrito.map((producto) => (
-                            <div className="fila-panel" key={producto.id}>
-                                <img src={producto.imagenURL} alt={producto.nombre} />
+                            <div className="fila-panel" key={producto._id}>
+                                <img src={producto.imagenUrl} alt={producto.nombre} />
                                 <div className="fila-info">
                                     <h4>{producto.nombre}</h4>
                                     <div className="controles-cantidad">
-                                        <button className="boton-restar" onClick={() => restarUnidad(producto.id)}>
+                                        <button className="boton-restar" onClick={() => restarUnidad(producto._id)}>
                                             -
                                         </button>
                                         <span>{producto.cantidad}</span>
-                                        <button className="boton-sumar" onClick={() => sumarUnidad(producto.id)}>
+                                        <button className="boton-sumar" onClick={() => sumarUnidad(producto._id)}>
                                             +
                                         </button>
                                     </div>
 
                                     <p className="fila-subtotal">${(producto.precio * producto.cantidad).toLocaleString("es-AR")}</p>
                                 </div>
-                                <button className="boton-eliminar-item" onClick={() => eliminarDelCarrito(producto.id)}>
+                                <button className="boton-eliminar-item" onClick={() => eliminarDelCarrito(producto._id)}>
                                     <img src="/icons/trash.svg" alt="Eliminar" className="icono-basura" />
                                 </button>
                             </div>

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ProductDetail from "../components/ProductDetail";
-import { useAuth } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
@@ -9,7 +9,7 @@ function ProductDetailPage() {
     
     const { id } = useParams();
     const navigate = useNavigate();
-    const { token } = useAuth();
+    const { token } = useContext(AuthContext);
     const [producto, setProducto] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);

@@ -1,6 +1,6 @@
 // Datos desde archivo JavaScript local
 
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:3000";
+const BASE_URL = process.env.API_BASE_URL || process.env.RENDER_EXTERNAL_URL || "http://localhost:5000";
 
 const productos = [
     {
@@ -8,7 +8,7 @@ const productos = [
         nombre: "Aparador Uspallata",
         categoria: "Almacenamiento",
         precio: 850000,
-        imagen: "/assets/img/aparador-uspallata.png",
+        imagenUrl: "/assets/img/aparador-uspallata.png",
         descripcion:
             "Aparador de seis puertas fabricado en nogal sostenible con tiradores metálicos en acabado latón. Su silueta minimalista realza el veteado natural de la madera, creando una pieza que combina funcionalidad y elegancia atemporal para espacios contemporáneos.",
         detalles: {
@@ -25,7 +25,7 @@ const productos = [
         nombre: "Biblioteca Recoleta",
         categoria: "Almacenamiento",
         precio: 620000,
-        imagen: "/assets/img/biblioteca-recoleta.png",
+        imagenUrl: "/assets/img/biblioteca-recoleta.png",
         descripcion:
             "Sistema modular de estantes abierto que combina estructura de acero Sage Green y repisas en roble claro. Perfecta para colecciones y objetos de diseño, su diseño versátil se adapta a cualquier espacio contemporáneo con elegancia funcional.",
         detalles: {
@@ -42,7 +42,7 @@ const productos = [
         nombre: "Butaca Mendoza",
         categoria: "Asientos",
         precio: 450000,
-        imagen: "/assets/img/butaca-mendoza.png",
+        imagenUrl: "/assets/img/butaca-mendoza.png",
         descripcion:
             "Butaca tapizada en bouclé Dusty Rose con base de madera de guatambú. El respaldo curvo abraza el cuerpo y ofrece máximo confort, mientras que su diseño orgánico aporta calidez y sofisticación a cualquier ambiente contemporáneo.",
         detalles: {
@@ -59,7 +59,7 @@ const productos = [
         nombre: "Sillón Copacabana",
         categoria: "Asientos",
         precio: 780000,
-        imagen: "/assets/img/sillon-copacabana.png",
+        imagenUrl: "/assets/img/sillon-copacabana.png",
         descripcion: "Sillón lounge en cuero cognac con base giratoria en acero Burnt Sienna. Inspirado en la estética brasilera moderna de los 60, combina comodidad excepcional con un diseño icónico que trasciende tendencias y épocas.",
         detalles: {
             medidas: "90 x 85 x 95 cm",
@@ -75,7 +75,7 @@ const productos = [
         nombre: "Mesa de Centro Araucaria",
         categoria: "Mesas",
         precio: 510000,
-        imagen: "/assets/img/mesa-de-centro-araucaria.png",
+        imagenUrl: "/assets/img/mesa-de-centro-araucaria.png",
         descripcion:
             "Mesa de centro con sobre circular de mármol Patagonia y base de tres patas en madera de nogal. Su diseño minimalista se convierte en el punto focal perfecto para cualquier sala de estar contemporánea, combinando la frialdad del mármol con la calidez de la madera.",
         detalles: {
@@ -92,7 +92,7 @@ const productos = [
         nombre: "Mesa de Noche Aconcagua",
         categoria: "Mesas",
         precio: 290000,
-        imagen: "/assets/img/mesa-de-noche-aconcagua.png",
+        imagenUrl: "/assets/img/mesa-de-noche-aconcagua.png",
         descripcion:
             "Mesa de noche con cajón oculto y repisa inferior en roble certificado FSC®. Su diseño limpio y funcional permite convivir con diferentes estilos de dormitorio, ofreciendo almacenamiento discreto y elegante para objetos personales.",
         detalles: {
@@ -109,7 +109,7 @@ const productos = [
         nombre: "Sofá Patagonia",
         categoria: "Asientos",
         precio: 1250000,
-        imagen: "/assets/img/sofa-patagonia.png",
+        imagenUrl: "/assets/img/sofa-patagonia.png",
         descripcion:
             "Sofá de tres cuerpos tapizado en lino Warm Alabaster con patas cónicas de madera. Los cojines combinan espuma de alta resiliencia con plumón reciclado, ofreciendo comodidad duradera y sostenible para el hogar moderno.",
         detalles: {
@@ -126,7 +126,7 @@ const productos = [
         nombre: "Mesa Comedor Pampa",
         categoria: "Mesas",
         precio: 1100000,
-        imagen: "/assets/img/mesa-comedor-pampa.png",
+        imagenUrl: "/assets/img/mesa-comedor-pampa.png",
         descripcion:
             "Mesa extensible de roble macizo con tablero biselado y sistema de apertura suave. Su diseño robusto y elegante se adapta perfectamente a reuniones íntimas o grandes celebraciones familiares, extendiéndose de 6 a 10 comensales.",
         detalles: {
@@ -143,7 +143,7 @@ const productos = [
         nombre: "Sillas Córdoba",
         categoria: "Asientos",
         precio: 850000,
-        imagen: "/assets/img/sillas-cordoba.png",
+        imagenUrl: "/assets/img/sillas-cordoba.png",
         descripcion:
             "Set de cuatro sillas apilables en contrachapado moldeado de nogal y estructura tubular pintada en Sage Green. Su diseño ergonómico y materiales de calidad garantizan comodidad y durabilidad en el uso diario, perfectas para comedores contemporáneos.",
         detalles: {
@@ -160,7 +160,7 @@ const productos = [
         nombre: "Escritorio Costa",
         categoria: "Oficina",
         precio: 680000,
-        imagen: "/assets/img/escritorio-costa.png",
+        imagenUrl: "/assets/img/escritorio-costa.png",
         descripcion:
             "Escritorio compacto con cajón organizado y tapa pasacables integrada en bambú laminado. Ideal para espacios de trabajo en casa, combina funcionalidad moderna con estética minimalista y sostenible, perfecto para el trabajo remoto.",
         detalles: {
@@ -177,7 +177,7 @@ const productos = [
         nombre: "Silla de Trabajo Belgrano",
         categoria: "Oficina",
         precio: 590000,
-        imagen: "/assets/img/silla-de-trabajo-belgrano.png",
+        imagenUrl: "/assets/img/silla-de-trabajo-belgrano.png",
         descripcion:
             "Silla ergonómica regulable en altura con respaldo de malla transpirable y asiento tapizado en tejido reciclado. Diseñada para largas jornadas de trabajo con máximo confort y apoyo lumbar, ideal para oficinas en casa y espacios de coworking.",
         detalles: {
@@ -193,5 +193,5 @@ const productos = [
 
 module.exports = productos.map((producto) => ({
     ...producto,
-    imagenURL: `${BASE_URL}${producto.imagen}`,
+    imagenUrl: `${BASE_URL}${producto.imagenUrl}`,
 }));

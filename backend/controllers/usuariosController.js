@@ -15,7 +15,7 @@ const getProfile = asyncHandler(async (req, res) => {
 // @desc Registrar un nuevo usuario
 // @route POST /api/usuarios/register
 const registerUser = asyncHandler(async (req, res) => {
-    const { username, email, password, rol } = req.body;
+    const { username, email, password } = req.body;
 
     // Validación preventiva antes de persistir
     if (!username || typeof username !== "string" || username.trim() === "") {
@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username: usernameLimpio,
         email: emailLimpio,
         password: hashedPassword,
-        rol: rol || "cliente",
+        rol: "cliente",
     });
 
     // Respondemos al frontend (sin enviar la contraseña)

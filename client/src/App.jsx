@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import CartSidebar from "./components/CartSidebar";
@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import CreateProductPage from "./pages/CreateProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import ProfilePage from "./pages/ProfilePage";
+{/* import MyOrdersPage from "./pages/MyOrdersPage"; */}
 import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -21,28 +22,41 @@ function App() {
     const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
+    const ultimaCarga = useRef(0);
 
-    useEffect(() => {
-        const url = `${API_URL}/api/productos`;
-        fetch(url)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error("Error al conectar con el servidor");
-                }
-                return res.json();
-            })
-            .then((data) => {
-                setProductos(data);
-                setError(null);
-            })
-            .catch((err) => {
-                console.error("Error al cargar el detalle:", err);
-                setError(err.message);
-            })
-            .finally(() => {
+    // Se llama al montar y después de eliminar un producto, para que el catálogo se actualice
+    const cargarProductos = useCallback(async () => {
+        const cargaActual = ++ultimaCarga.current;
+        try {
+            setCargando(true);
+            const res = await fetch(`${API_URL}/api/productos`);
+            if (!res.ok) {
+                throw new Error("Error al conectar con el servidor");
+            }
+            const data = await res.json();
+            if (cargaActual !== ultimaCarga.current) {
+                return;
+            }
+            setProductos(data);
+            setError(null);
+        } catch (err) {
+            if (cargaActual !== ultimaCarga.current) {
+                return;
+            }
+            console.error("Error al cargar los productos:", err);
+            setError(err.message);
+        } finally {
+            if (cargaActual === ultimaCarga.current) {
                 setCargando(false);
-            });
+            }
+        }
     }, []);
+
+    // Carga inicial de productos desde la API
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        cargarProductos();
+    }, [cargarProductos]);
 
     return (
         <>
@@ -73,12 +87,27 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
+    
+                    {/*
+                    <Route
+                        path="/mis-pedidos"
+                        element={
+                            <ProtectedRoute>
+                                <MyOrdersPage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    */}
+                    
 
+                    {/* FALTA VER QUE ONDA ADONDE IMPLEMENTO LA PROP CARGARPRODUCTOS EN EL FORM, SUBMIT?
+                    , ademas la key=crear sigo dejandola???¿ */}
+                    
                     <Route
                         path="/admin/crear-producto"
                         element={
                             <ProtectedRoute soloAdmin>
-                                <CreateProductPage key="crear" />
+                                <CreateProductPage key="crear" cargarProductos={cargarProductos} />
                             </ProtectedRoute>
                         }
                     />
@@ -87,7 +116,7 @@ function App() {
                         path="/admin/editar-producto/:id"
                         element={
                             <ProtectedRoute soloAdmin>
-                                <EditProductPage />
+                                <EditProductPage cargarProductos={cargarProductos} />
                             </ProtectedRoute>
                         }
                     />

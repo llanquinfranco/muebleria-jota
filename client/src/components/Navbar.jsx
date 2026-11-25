@@ -80,7 +80,7 @@ function Navbar() {
                     </ul>
                 </nav>
 
-                <button id="header-carrito" onClick={() => abrirPanel}>
+                <button id="header-carrito" onClick={abrirPanel}>
                     <img src="/icons/carrito.svg" alt="Ver Carrito" />
                     <span id="contador-carrito">{cantidad}</span>
                 </button>

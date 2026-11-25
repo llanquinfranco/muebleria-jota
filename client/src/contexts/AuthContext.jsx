@@ -7,26 +7,44 @@ export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const [token, setToken] = useState(null);
+    const [cargando, setCargando] = useState(true);
 
     // Este efecto se ejecuta solo una vez, cuando la app carga.
     useEffect(() => {
         const checkAuth = () => {
-            const token = localStorage.getItem("authToken");
-            if (token) {
-                try {
-                    const decodedUser = jwtDecode(token);
-                    setCurrentUser(decodedUser);
-                } catch (error) {
-                    // Token inválido o expirado, lo borramos
+            const savedToken = localStorage.getItem("authToken");
+            if (!savedToken) {
+                setCargando(false);
+                return;
+            }
+            try {
+                const decodedUser = jwtDecode(savedToken);
+
+                // Comprobar si el token expiró
+                if (decodedUser.exp && decodedUser.exp * 1000 < Date.now()) {
                     localStorage.removeItem("authToken");
-                    console.log(error);
+                    setCurrentUser(null);
+                    setToken(null);
+                    return;
                 }
+
+                // Si el token sigue vigente, restaurar la sesión
+                setToken(savedToken);
+                setCurrentUser(decodedUser);
+            } catch (error) {
+                localStorage.removeItem("authToken");
+                setCurrentUser(null);
+                setToken(null);
+                console.error("Error al restaurar la sesión:", error);
+            } finally {
+                setCargando(false);
             }
         };
         checkAuth();
     }, []);
 
-    const login = async (email, password) => {
+    async function login(email, password){
         const respuesta = await fetch(`${API_URL}/api/usuarios/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -38,15 +56,30 @@ export const AuthProvider = ({ children }) => {
         }
         localStorage.setItem("authToken", datos.token);
         const decodedUser = jwtDecode(datos.token);
+        setToken(datos.token);
         setCurrentUser(decodedUser);
-    };
+    }
 
-    const logout = () => {
+    function logout() {
         localStorage.removeItem("authToken");
+        setToken(null);
         setCurrentUser(null);
-    };
+    }
     
-    const value = { currentUser, login, logout };
+    async function registrar(username, email, password) {
+        const res = await fetch(`${API_URL}/api/usuarios/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+            throw new Error(data.mensaje || "Error al registrarse");
+        }
+        await login(email, password);
+    }
+    
+    const value = { currentUser, token, cargando, login, logout, registrar };
     
     return (
         <AuthContext.Provider value={value}>
@@ -54,5 +87,3 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
-
-

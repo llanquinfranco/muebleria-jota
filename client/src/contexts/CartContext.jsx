@@ -1,43 +1,53 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
-    const [carrito, setCarrito] = useState([]);
+    const [carrito, setCarrito] = useState(() => {
+        try {
+            return JSON.parse(localStorage.getItem("carrito")) || [];
+        } catch {
+            return [];
+        }
+    });
     const [panelAbierto, setPanelAbierto] = useState(false);
     
+    useEffect(() => {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    }, [carrito]);
+
     function abrirPanel() {
         setPanelAbierto(true);
     }
-    
+
     function cerrarPanel() {
         setPanelAbierto(false);
     }
 
     function agregarAlCarrito(producto) {
         setCarrito((prevCarrito) => {
-            const productoExistente = prevCarrito.find((item) => item.id == producto.id);
+            const productoExistente = prevCarrito.find((item) => item._id == producto._id);
             if (productoExistente) {
-                return prevCarrito.map((item) => (item.id == producto.id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item));
+                return prevCarrito.map((item) => (item._id == producto._id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item));
             }
             // Si es nuevo, lo agregamos con cantidad inicial en 1
             return [...prevCarrito, { ...producto, cantidad: 1 }];
         });
     }
 
-    function sumarUnidad(id) {
+    function sumarUnidad(_id) {
         setCarrito(
             carrito.map((item) => {
-                return item.id === id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item;
+                return item._id === _id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item;
             }),
         );
     }
 
-    function restarUnidad(id) {
+    function restarUnidad(_id) {
         setCarrito(
             carrito
                 .map((item) => {
-                    if (item.id === id) {
+                    if (item._id === _id) {
                         return { ...item, cantidad: item.cantidad - 1 };
                     }
                     return item;
@@ -46,8 +56,8 @@ export const CartProvider = ({ children }) => {
         );
     }
 
-    function eliminarDelCarrito(id) {
-        setCarrito(carrito.filter((item) => item.id !== id));
+    function eliminarDelCarrito(_id) {
+        setCarrito(carrito.filter((item) => item._id !== _id));
     }
 
     function vaciarCarrito() {
@@ -59,9 +69,5 @@ export const CartProvider = ({ children }) => {
 
     const value = { carrito, panelAbierto, abrirPanel, cerrarPanel, agregarAlCarrito, sumarUnidad, restarUnidad, eliminarDelCarrito, vaciarCarrito, cantidad, totalPrecio };
 
-    return (
-        <CartContext.Provider value={value}>
-            {children}
-        </CartContext.Provider>
-    );
+    return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
