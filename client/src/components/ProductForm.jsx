@@ -14,7 +14,7 @@ const ESTADO_VACIO = {
     stock: "",
 };
 
-function ProductForm() {
+function ProductForm({ cargarProductos }) {
     const { id } = useParams();
     const navigate = useNavigate();
     const esEdicion = Boolean(id);
@@ -44,7 +44,7 @@ function ProductForm() {
                     nombre: data.nombre || "",
                     categoria: data.categoria || "",
                     precio: data.precio || "",
-                    imagenUrl: data.imagenUrl || data.imagen || "",
+                    imagenUrl: data.imagenUrl || "",
                     descripcion: data.descripcion || "",
                     detalles: detallesCompletos,
                     stock: data.stock || "",
@@ -124,7 +124,8 @@ function ProductForm() {
             }
 
             setEnviado(true);
-
+            await cargarProductos?.();
+            
             // Si estábamos creando, limpiamos el form. Si editábamos, volvemos al catálogo.
             if (!esEdicion) {
                 setTimeout(() => {

@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
-function ProductDetailPage() {
+function ProductDetailPage({ cargarProductos }) {
     
     const { id } = useParams();
     const navigate = useNavigate();
@@ -49,6 +49,7 @@ function ProductDetailPage() {
             if (!response.ok) {
                 throw new Error("No se pudo eliminar el producto");
             }
+            await cargarProductos?.();
             navigate("/productos");
         } catch (err) {
             console.error("Error al eliminar:", err);

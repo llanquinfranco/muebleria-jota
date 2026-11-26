@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
         }
     });
     const [panelAbierto, setPanelAbierto] = useState(false);
-    
+
     useEffect(() => {
         localStorage.setItem("carrito", JSON.stringify(carrito));
     }, [carrito]);
@@ -25,34 +25,38 @@ export const CartProvider = ({ children }) => {
     }
 
     function agregarAlCarrito(producto) {
-        setCarrito((prevCarrito) => {
-            const productoExistente = prevCarrito.find((item) => item._id == producto._id);
-            if (productoExistente) {
-                return prevCarrito.map((item) => (item._id == producto._id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item));
+        const stock = Number(producto.stock ?? 0);
+        setCarrito((carritoAnterior) => {
+            const productoExistente = carritoAnterior.find((item) => item._id === producto._id);
+            const cantidadActual = productoExistente?.cantidad ?? 0;
+            if (!Number.isInteger(stock) || stock <= cantidadActual) {
+                return carritoAnterior;
             }
-            // Si es nuevo, lo agregamos con cantidad inicial en 1
-            return [...prevCarrito, { ...producto, cantidad: 1 }];
+            if (!productoExistente) {
+                // Si es nuevo, lo agregamos con cantidad inicial en 1
+                return [...carritoAnterior, { ...producto, cantidad: 1 }];
+            }
+            return carritoAnterior.map((item) => (item._id === producto._id ? { ...item, cantidad: item.cantidad + 1 } : item));
         });
     }
 
     function sumarUnidad(_id) {
-        setCarrito(
-            carrito.map((item) => {
-                return item._id === _id ? { ...item, cantidad: (item.cantidad || 1) + 1 } : item;
-            }),
+        setCarrito((carritoAnterior) =>
+            carritoAnterior.map((item) =>
+                item._id === _id && item.cantidad < Number(item.stock ?? 0)
+                    ? { ...item, cantidad: item.cantidad + 1 }
+                    : item,
+            ),
         );
     }
 
     function restarUnidad(_id) {
-        setCarrito(
-            carrito
-                .map((item) => {
-                    if (item._id === _id) {
-                        return { ...item, cantidad: item.cantidad - 1 };
-                    }
-                    return item;
-                })
-                .filter((item) => item.cantidad > 0),
+        setCarrito((carritoAnterior) =>
+            carritoAnterior.map((item) =>
+                item._id === _id
+                    ? { ...item, cantidad: item.cantidad - 1 }
+                    : item,
+            ).filter((item) => item.cantidad > 0),
         );
     }
 

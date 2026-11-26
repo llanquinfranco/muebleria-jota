@@ -53,7 +53,7 @@ function Navbar() {
                         {currentUser ? (
                             <>
                                 <li>
-                                    <Link to={"/profile"} className={location.pathname === "/profile" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
+                                    <Link to={"/perfil"} className={location.pathname === "/perfil" ? "active" : ""} onClick={() => setMenuAbierto(false)}>
                                         Hola, {currentUser.username}
                                     </Link>
                                 </li>

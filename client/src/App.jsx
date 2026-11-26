@@ -71,7 +71,7 @@ function App() {
 
                     <Route path="/productos" element={<ProductsPage productos={productos} cargando={cargando} error={error} />} />
 
-                    <Route path="/productos/:id" element={<ProductDetailPage />} />
+                    <Route path="/productos/:id" element={<ProductDetailPage cargarProductos={cargarProductos} />} />
 
                     <Route path="/contacto" element={<ContactPage />} />
 
@@ -80,7 +80,7 @@ function App() {
                     <Route path="/registro" element={<RegisterPage />} />
 
                     <Route
-                        path="/profile"
+                        path="/perfil"
                         element={
                             <ProtectedRoute>
                                 <ProfilePage />

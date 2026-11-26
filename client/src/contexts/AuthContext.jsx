@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -44,19 +45,19 @@ export const AuthProvider = ({ children }) => {
         checkAuth();
     }, []);
 
-    async function login(email, password){
+    async function login({ email, password }){
         const respuesta = await fetch(`${API_URL}/api/usuarios/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
         });
-        const datos = await respuesta.json();
+        const data = await respuesta.json();
         if (!respuesta.ok) {
-            throw new Error(datos.message || datos.mensaje || "No se pudo iniciar sesión");
+            throw new Error(data.message || "Error al iniciar sesión");
         }
-        localStorage.setItem("authToken", datos.token);
-        const decodedUser = jwtDecode(datos.token);
-        setToken(datos.token);
+        localStorage.setItem("authToken", data.token);
+        const decodedUser = jwtDecode(data.token);
+        setToken(data.token);
         setCurrentUser(decodedUser);
     }
 
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
         setCurrentUser(null);
     }
     
-    async function registrar(username, email, password) {
+    async function registrar({ username, email, password }) {
         const res = await fetch(`${API_URL}/api/usuarios/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -74,9 +75,9 @@ export const AuthProvider = ({ children }) => {
         });
         const data = await res.json();
         if (!res.ok) {
-            throw new Error(data.mensaje || "Error al registrarse");
+            throw new Error(data.message || "Error al registrarse");
         }
-        await login(email, password);
+        await login({ email, password });
     }
     
     const value = { currentUser, token, cargando, login, logout, registrar };

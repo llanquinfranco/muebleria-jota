@@ -7,9 +7,8 @@ const path = require("path");
 const connectDB = require("./config/db");
 const logger = require("./middlewares/logger");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
-const productosRoutes = require("./routes/productosRoutes");
-const usuariosRoutes = require("./routes/usuariosRoutes");
-
+const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -42,8 +41,8 @@ app.use(express.json());
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 // Rutas de la API
-app.use("/api/productos", productosRoutes);
-app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/productos", productRoutes);
+app.use("/api/usuarios", userRoutes);
 
 app.get("/", (req, res) => {
     res.json({

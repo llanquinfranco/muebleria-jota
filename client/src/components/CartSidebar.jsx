@@ -30,7 +30,7 @@ function CartSidebar() {
                                             -
                                         </button>
                                         <span>{producto.cantidad}</span>
-                                        <button className="boton-sumar" onClick={() => sumarUnidad(producto._id)}>
+                                        <button className="boton-sumar" disabled={producto.cantidad >= Number(producto.stock ?? 0)} onClick={() => sumarUnidad(producto._id)}>
                                             +
                                         </button>
                                     </div>

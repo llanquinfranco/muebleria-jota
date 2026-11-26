@@ -4,8 +4,11 @@ import { CartContext } from '../contexts/CartContext';
 
 function ProductCard({ producto, esDestacado = false }) {
     const navigate = useNavigate();
-    const { agregarAlCarrito } = useContext(CartContext);
-
+    const { carrito, agregarAlCarrito } = useContext(CartContext);
+    const cantidadEnCarrito = carrito.find((item) => item._id === producto._id)?.cantidad ?? 0;
+    const stock = Number(producto.stock ?? 0);
+    const limiteAlcanzado = cantidadEnCarrito >= stock;
+    
     return (
         <div className="tarjeta-producto" onClick={() => navigate(`/productos/${producto._id}`)}>
             <img src={producto.imagenUrl} alt={producto.nombre} />
@@ -16,12 +19,13 @@ function ProductCard({ producto, esDestacado = false }) {
             )}
             <button
                 className="boton-primario"
+                disabled={limiteAlcanzado}
                 onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
                     agregarAlCarrito(producto);
                 }}>
-                Añadir al carrito
+                {stock <= 0 ? "Sin stock" : limiteAlcanzado ? "Máximo alcanzado" : "Añadir al carrito"}
             </button>
         </div>
     );

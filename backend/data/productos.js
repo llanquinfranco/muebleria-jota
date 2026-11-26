@@ -4,7 +4,6 @@ const BASE_URL = process.env.API_BASE_URL || process.env.RENDER_EXTERNAL_URL || 
 
 const productos = [
     {
-        id: 1,
         nombre: "Aparador Uspallata",
         categoria: "Almacenamiento",
         precio: 850000,
@@ -19,9 +18,9 @@ const productos = [
             capacidad: "6 compartimentos interiores",
         },
         destacado: false,
+        stock: 12,
     },
     {
-        id: 2,
         nombre: "Biblioteca Recoleta",
         categoria: "Almacenamiento",
         precio: 620000,
@@ -36,9 +35,9 @@ const productos = [
             modulares: "5 estantes ajustables",
         },
         destacado: false,
+        stock: 18,
     },
     {
-        id: 3,
         nombre: "Butaca Mendoza",
         categoria: "Asientos",
         precio: 450000,
@@ -53,9 +52,9 @@ const productos = [
             confort: "Espuma alta densidad",
         },
         destacado: false,
+        stock: 22,
     },
     {
-        id: 4,
         nombre: "Sillón Copacabana",
         categoria: "Asientos",
         precio: 780000,
@@ -69,9 +68,9 @@ const productos = [
             garantia: "10 años en estructura",
         },
         destacado: false,
+        stock: 10,
     },
     {
-        id: 5,
         nombre: "Mesa de Centro Araucaria",
         categoria: "Mesas",
         precio: 510000,
@@ -86,9 +85,9 @@ const productos = [
             cargaMaxima: "25 kg distribuidos",
         },
         destacado: false,
+        stock: 16,
     },
     {
-        id: 6,
         nombre: "Mesa de Noche Aconcagua",
         categoria: "Mesas",
         precio: 290000,
@@ -103,9 +102,9 @@ const productos = [
             caracteristicas: "Cajón con cierre suave",
         },
         destacado: true,
+        stock: 17,
     },
     {
-        id: 7,
         nombre: "Sofá Patagonia",
         categoria: "Asientos",
         precio: 1250000,
@@ -120,9 +119,9 @@ const productos = [
             sostenibilidad: "Materiales 100% reciclables",
         },
         destacado: false,
+        stock: 8,
     },
     {
-        id: 8,
         nombre: "Mesa Comedor Pampa",
         categoria: "Mesas",
         precio: 1100000,
@@ -137,9 +136,9 @@ const productos = [
             extension: "Sistema de mariposa central",
         },
         destacado: true,
+        stock: 14,
     },
     {
-        id: 9,
         nombre: "Sillas Córdoba",
         categoria: "Asientos",
         precio: 850000,
@@ -154,9 +153,9 @@ const productos = [
             incluye: "Set de 4 sillas",
         },
         destacado: true,
+        stock: 36,
     },
     {
-        id: 10,
         nombre: "Escritorio Costa",
         categoria: "Oficina",
         precio: 680000,
@@ -171,9 +170,9 @@ const productos = [
             cables: "Pasacables integrado",
         },
         destacado: true,
+        stock: 19,
     },
     {
-        id: 11,
         nombre: "Silla de Trabajo Belgrano",
         categoria: "Oficina",
         precio: 590000,
@@ -188,6 +187,7 @@ const productos = [
             certificacion: "Ergonomía europea EN 1335",
         },
         destacado: false,
+        stock: 30,
     },
 ];
 

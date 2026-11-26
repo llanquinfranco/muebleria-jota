@@ -5,8 +5,10 @@ import { AuthContext } from "../contexts/AuthContext";
 
 function ProductDetail({ producto, handleDelete }) {
     const [confirmando, setConfirmando] = useState(false);
-
-    const { agregarAlCarrito } = useContext(CartContext);
+    const { carrito, agregarAlCarrito } = useContext(CartContext);
+    const cantidadEnCarrito = carrito.find((item) => item._id === producto._id)?.cantidad ?? 0;
+    const stock = Number(producto.stock ?? 0);
+    const limiteAlcanzado = cantidadEnCarrito >= stock;
     const { currentUser } = useContext(AuthContext);
     const esAdmin = currentUser?.rol === "admin";
 
@@ -49,8 +51,8 @@ function ProductDetail({ producto, handleDelete }) {
                     <h1>{producto.nombre}</h1>
                     <div className="precio-y-boton">
                         <p className="precio">${producto.precio.toLocaleString("es-AR")}</p>
-                        <button id="boton-agregar" className="boton-primario" onClick={() => agregarAlCarrito(producto)}>
-                            Añadir al Carrito
+                        <button id="boton-agregar" className="boton-primario" disabled={limiteAlcanzado} onClick={() => agregarAlCarrito(producto)}>
+                            {stock <= 0 ? "Sin stock" : limiteAlcanzado ? "Máximo alcanzado" : "Añadir al carrito"}
                         </button>
                     </div>
                     <p className="descripcion">{producto.descripcion}</p>
