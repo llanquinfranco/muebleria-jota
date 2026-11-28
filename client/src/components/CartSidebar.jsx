@@ -1,10 +1,11 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
 
 function CartSidebar() {
-    
+    const navigate = useNavigate();
     const { carrito, panelAbierto, cerrarPanel, sumarUnidad, restarUnidad, eliminarDelCarrito, vaciarCarrito, totalPrecio } = useContext(CartContext);
-    
+
     return (
         <>
             <div id="overlay-carrito" className={panelAbierto ? "" : "oculto"} onClick={cerrarPanel}></div>
@@ -53,7 +54,14 @@ function CartSidebar() {
                         </button>
                     )}
 
-                    <button className="boton-primario">Ir al Pago</button>
+                    <button
+                        className="boton-primario"
+                        onClick={() => {
+                            cerrarPanel();
+                            navigate("/finalizar-compra");
+                        }}>
+                        Ir al Pago
+                    </button>
                 </div>
             </aside>
         </>

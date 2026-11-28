@@ -9,16 +9,14 @@ const logger = require("./middlewares/logger");
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // 2. Configuración de CORS segura según el entorno
-const allowedOrigins = [
-    process.env.CLIENT_URL,
-    "http://localhost:5173",
-    "http://localhost:3000",
-].filter(Boolean);
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173", "http://localhost:3000"].filter(Boolean);
 
 const corsOptions = {
     origin: (origin, callback) => {
@@ -43,11 +41,24 @@ app.use("/assets", express.static(path.join(__dirname, "assets")));
 // Rutas de la API
 app.use("/api/productos", productRoutes);
 app.use("/api/usuarios", userRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.get("/", (req, res) => {
     res.json({
         mensaje: "API REST de Mueblería Hermanos Jota operativa",
-        documentacion: "/api/productos",
+        endpoints: {
+            productos: "/api/productos",
+            usuarios: {
+                perfil: "GET /api/users/me (JWT requerido)",
+                registro: "POST /api/auth/register",
+                login: "POST /api/auth/login",
+            },
+            pedidos: {
+                crear: "POST /api/orders (JWT requerido)",
+                misPedidos: "GET /api/orders/my (JWT requerido)",
+            },
+        },
     });
 });
 

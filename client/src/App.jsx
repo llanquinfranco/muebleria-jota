@@ -11,7 +11,9 @@ import RegisterPage from "./pages/RegisterPage";
 import CreateProductPage from "./pages/CreateProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import ProfilePage from "./pages/ProfilePage";
-{/* import MyOrdersPage from "./pages/MyOrdersPage"; */}
+import MyOrdersPage from "./pages/MyOrdersPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -87,8 +89,7 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-    
-                    {/*
+
                     <Route
                         path="/mis-pedidos"
                         element={
@@ -97,12 +98,16 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    */}
-                    
 
-                    {/* FALTA VER QUE ONDA ADONDE IMPLEMENTO LA PROP CARGARPRODUCTOS EN EL FORM, SUBMIT?
-                    , ademas la key=crear sigo dejandola???¿ */}
-                    
+                    <Route
+                        path="/finalizar-compra"
+                        element={
+                            <ProtectedRoute>
+                                <CheckoutPage />
+                            </ProtectedRoute>
+                        }
+                    />
+
                     <Route
                         path="/admin/crear-producto"
                         element={
@@ -120,6 +125,9 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
+                    
+                    <Route path="*" element={<NotFoundPage />} />
+                    
                 </Routes>
             </main>
 

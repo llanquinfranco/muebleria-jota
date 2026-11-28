@@ -2,15 +2,21 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Product = require("../models/Product");
 
-// @desc Listar todos los productos
-// @route GET /api/productos
+/**
+ *  @route   GET /api/productos
+ *  @desc    Listar todos los productos
+ *  @access  Público
+ */
 const getProducts = asyncHandler(async (req, res) => {
     const productos = await Product.find().sort({ createdAt: -1 });
     res.status(200).json(productos);
 });
 
-// @desc Obtener detalle de un producto por ID
-// @route GET /api/productos/:id
+/**
+ *  @route   GET /api/productos/:id
+ *  @desc    Obtener detalle de un producto por ID
+ *  @access  Público
+ */
 const getProductById = asyncHandler(async (req, res) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -23,8 +29,11 @@ const getProductById = asyncHandler(async (req, res) => {
     res.status(200).json(producto);
 });
 
-// @desc Crear un nuevo producto
-// @route POST /api/productos
+/**
+ *  @route   POST /api/productos
+ *  @desc    Crear un nuevo producto
+ *  @access  Privado (JWT)
+ */
 const createProduct = asyncHandler(async (req, res) => {
     const { nombre, categoria, precio, imagenUrl, descripcion, detalles, stock } = req.body;
 
@@ -53,8 +62,11 @@ const createProduct = asyncHandler(async (req, res) => {
     res.status(201).json(nuevoProducto);
 });
 
-// @desc Actualizar un producto existente
-// @route PUT /api/productos/:id
+/**
+ *  @route   PUT /api/productos/:id
+ *  @desc    Actualizar un producto existente
+ *  @access  Privado (JWT)
+ */
 const updateProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -67,8 +79,11 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.json(productoActualizado);
 });
 
-// @desc Eliminar un producto por ID
-// @route DELETE /api/productos/:id
+/**
+ *  @route   DELETE /api/productos/:id
+ *  @desc    Eliminar un producto por ID
+ *  @access  Privado (JWT)
+ */
 const deleteProduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(id)) {
